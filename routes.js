@@ -6,26 +6,18 @@ router.use(bodyParser.urlencoded({extended:true}));
 
 
 
-//app.use(express.static("views")); // Allow access to views folder
 
 var db = require('./db');
-var Static = require("./controller/static.js");
-var Clues = require("./controller/clues.js");
+var Static = require("./classes/static.js");
+var Clues = require("./classes/clues.js");
 var crypto = require('crypto');
 
-//const mw = require('./controller/clueQuery.js')
-//router.use(mw())
+// *** These are the routes to call the functions in the controllers
+router.use(require('./controller/staticpagesController'))
+router.use(require('./controller/cluesController'))
 
-// Define the home page route
-router.get('/', function(req, res) {
-    res.render('index')
-});
 
-// Define the about route
-router.get('/about', function(req, res) {
-    var message1 = Static.about()
-  res.send(message1);
-});
+
 
 
 router.get('/clue1', function(req, res) {

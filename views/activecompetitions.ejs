@@ -1,0 +1,59 @@
+
+<%- include('header') -%>
+<div class="w3-row w3-padding w3-border">
+
+
+
+<% result.forEach(function(contact) { %>
+       
+    
+
+      <!-- Blog entry -->
+  <div class="w3-container w3-white w3-margin w3-padding-large">
+    <div class="w3-center">
+      <h3><%= contact.cName %></h3>
+      <h5>Went Live On, <span class="w3-opacity"><%= contact.cDate %></span></h5>
+    </div>
+
+    <div class="w3-justify">
+        <%= contact.cImage %>
+      <img src="../<%= contact.cImage %>" alt="win logo" style="width:100%" class="w3-padding-16">
+      <p><%= contact.cDescription %></p>
+      <p class="w3-left"><button class="w3-button w3-white w3-border" onclick="likeFunction(this)"><b><i class="fa fa-thumbs-up"></i> Like (<%= contact.cLikes %>)</b></button></p>
+      <p class="w3-right">
+          
+        <a href="check/<%= contact.clueID %>/clue<%= contact.currentMax %>"><button class="w3-button w3-green" ><b>Play Now  </b> </button></a>
+        <a href="check/<%= contact.clueID %>/clue<%= contact.currentMax %>"><button class="w3-button w3-black" ><b>Current Guess  </b> <span class="w3-tag w3-white"><%= contact.currentMax %></span></button></a></p>
+      <p class="w3-clear"></p>
+      <div class="w3-row w3-margin-bottom" id="demo1" style="display:none">
+        <hr>
+        
+          <div class="w3-col l10 m9">
+            <h4>Winner <span class="w3-opacity w3-medium"><%= contact.cWinner %></span></h4>
+            
+          </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+                      
+   
+
+    
+
+    
+
+
+
+<% }); %>
+
+
+
+
+
+
+
+</div>
+
+<%- include('footer') -%>
+  

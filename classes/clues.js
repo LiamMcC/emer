@@ -9,6 +9,53 @@ const { nextTick } = require("process");
 
 module.exports = class Clue {
    
+// ****** v2 from here ******
+    static updateMax(x,y){
+var newMax = x
+console.log("The id is " + y)
+        let sql = 'UPDATE clue SET currentMax =  ' +newMax+'  where clueID = '+y+'';
+    
+        let query = db.query(sql, (err,res) => {
+            
+            if(err) throw err;
+            
+            
+            
+        });
+       
+
+    }
+
+
+    static updateStatus(x,y){
+        var newMax = "Solved"
+        console.log("The id is " + y)
+                let sql = 'UPDATE clue SET status =  "Solved"  where clueID = '+y+'';
+            
+                let query = db.query(sql, (err,res) => {
+                    
+                    if(err) throw err;
+                    
+                    
+                    
+                });
+               
+        
+            }
+
+// ****** v2 end here ******
+
+
+
+
+
+
+
+
+
+
+
+
 
    static hashClue1() {
      
@@ -107,30 +154,16 @@ return JSON.stringify(d)
 
 
         let sql = 'select clue1 from clue where clueID = 1'
-        let query = db.query(sql, (req, rows, next) => {
+        var query = db.query(sql, (req, rows, next) => {
           var y = JSON.stringify(rows[0].clue1)
-         console.log("Here " + JSON.stringify(rows[0].clue1))
-         return y 
+         console.log(y)
+        return query
         });
-return "y"
+//console.log ("Balls " + query)
     }
 
 
-
-    static updateMax(x){
-
-        let sql = 'UPDATE clue SET status = "active" ';
-    
-        let query = db.query(sql, (err,res) => {
-            
-            if(err) throw err;
-            
-            console.log(res);
-            
-        });
-       
-
-    }
+ 
  
   
 }
