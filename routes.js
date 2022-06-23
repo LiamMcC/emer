@@ -15,8 +15,7 @@ var crypto = require('crypto');
 // *** These are the routes to call the functions in the controllers
 router.use(require('./controller/staticpagesController'))
 router.use(require('./controller/cluesController'))
-
-
+router.use(require('./controller/userController'))
 
 
 

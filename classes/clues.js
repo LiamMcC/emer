@@ -14,7 +14,7 @@ module.exports = class Clue {
 var newMax = x
 console.log("The id is " + y)
         let sql = 'UPDATE clue SET currentMax =  ' +newMax+'  where clueID = '+y+'';
-    
+    console.log("***** Y is " + y + " New max is " + newMax)
         let query = db.query(sql, (err,res) => {
             
             if(err) throw err;
@@ -35,13 +35,47 @@ console.log("The id is " + y)
                 let query = db.query(sql, (err,res) => {
                     
                     if(err) throw err;
-                    
+                    console.log("Updated")
                     
                     
                 });
                
         
             }
+
+
+
+
+            static weHaveAWinner(comp, winner){
+
+                var datetime = new Date();
+                console.log(datetime);
+                           // 'select * FROM clue where status = "active" and clueID = '+req.params.id+''
+                let sql = 'INSERT INTO winners (comp, userName) values ('+comp+', "'+winner+'")';
+                let xxx = db.query(sql);
+                   
+                }
+
+                static newUserLevel(usNm, cmp, progs){
+
+                    
+                    
+                               // 'select * FROM clue where status = "active" and clueID = '+req.params.id+''
+                    let sql = 'INSERT INTO userComps (userName, comp, currentProgress ) values ("'+usNm+'", "'+cmp+'", "'+progs+'")';
+                    let xxx = db.query(sql);
+                       
+                    }
+
+                    static updateUserLevel(usNm, cmp, progs){
+
+                    
+                    
+                        // 'select * FROM clue where status = "active" and clueID = '+req.params.id+''
+             let sql = 'update userComps set currentProgress = "'+progs+'" where comp = "'+cmp+'" and userName = "'+progs+'"';
+             let xxx = db.query(sql);
+                
+             }
+
 
 // ****** v2 end here ******
 
@@ -80,18 +114,7 @@ console.log("hash : " + generatedHash);
 
   
 
-   static people(){
-
-
-
-    let sql = 'select * from clue where clueID = 1';
-    let xxx = db.query(sql);
-    console.log(xxx)
-    return xxx
-    
-
-    
-    }
+ 
       
 
     static getMultiple (){
@@ -113,7 +136,7 @@ console.log("hash : " + generatedHash);
         let query = db.query(sql,function (error, results, next) {
             if (error) throw error;
             
-            console.log(results)
+           
             res.render("test", {results})
           });
        // console.log("******************** " + results)

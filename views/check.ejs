@@ -11,9 +11,10 @@
     <div class="w3-container w3-white">
       <p>Simple! Enter the guess to the clue below and see if you are right or wrong.</p>
       <p>You are playing <%= result[0].cName %> which is currently on clue No. <%= result[0].currentMax %> you are guessing for <%= bother %></p>
-
-        <% var thenum = bother.replace( /^\D+/g, '');  %>
-        <% if( thenum == result[0].currentMax){ %>
+<H4> Liam this player is currently on <%= result[0].currentProgress %></H4>
+        <% var thenum = bother.match(/\d+/)[0]  %>
+        <h1>The num is <%= thenum %> and current progress is <%= result[0].currentProgress %></h1>
+        <% if( result[0].currentProgress === null ||  result[0].currentProgress == thenum ){ %>
       
             
 
@@ -29,7 +30,7 @@
                                       <h1><%= result[0].q5Text %></h1>
                                       
                   <% } %>
-
+<a href="/check/<%= a %>/<%= bother %>">Where to Liam <%= bother %></a>
                   <form accept-charset="UTF-8" action="/check/<%= a %>/<%= bother %>" method="post">
                     <p><input name="firstClue" class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
                     <p><button class="w3-button w3-block w3-red">Check My Clue</button></p>

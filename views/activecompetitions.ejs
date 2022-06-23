@@ -3,6 +3,8 @@
 <div class="w3-row w3-padding w3-border">
 
 
+ 
+  <% if (isAuthenticated) { %>
 
 <% result.forEach(function(contact) { %>
        
@@ -13,6 +15,11 @@
     <div class="w3-center">
       <h3><%= contact.cName %></h3>
       <h5>Went Live On, <span class="w3-opacity"><%= contact.cDate %></span></h5>
+      <% if (contact.currentProgress  !== null) { %>
+      <h5> You are currently on clue <%= contact.currentProgress %></h5>
+      <%} else { %>
+<h5>You Have Not Tried This Competition Yet</h5>
+        <% } %>  
     </div>
 
     <div class="w3-justify">
@@ -21,10 +28,16 @@
       <p><%= contact.cDescription %></p>
       <p class="w3-left"><button class="w3-button w3-white w3-border" onclick="likeFunction(this)"><b><i class="fa fa-thumbs-up"></i> Like (<%= contact.cLikes %>)</b></button></p>
       <p class="w3-right">
-          
-        <a href="check/<%= contact.clueID %>/clue<%= contact.currentMax %>"><button class="w3-button w3-green" ><b>Play Now  </b> </button></a>
-        <a href="check/<%= contact.clueID %>/clue<%= contact.currentMax %>"><button class="w3-button w3-black" ><b>Current Guess  </b> <span class="w3-tag w3-white"><%= contact.currentMax %></span></button></a></p>
-      <p class="w3-clear"></p>
+        <% if (contact.currentProgress  !== null) { %>   
+        <a href="check/<%= contact.clueID %>/clue<%= contact.currentMax %>"><button class="w3-button w3-green" ><b>Play Now </b> </button></a>
+        
+        
+        <%} else { %>
+          <a href="check/<%= contact.clueID %>/clue1"><button class="w3-button w3-green" ><b>Play Now </b> </button></a>
+        <% } %>  
+
+        <a href="check/<%= contact.clueID %>/clue<%= contact.currentProgress %>"><button class="w3-button w3-black" ><b>Current Guess </b> <span class="w3-tag w3-white"><%= contact.currentMax %></span></button></a></p>
+        <p class="w3-clear"></p>
       <div class="w3-row w3-margin-bottom" id="demo1" style="display:none">
         <hr>
         
@@ -36,21 +49,17 @@
     </div>
   </div>
   <hr>
-                      
    
-
-    
-
-    
-
 
 
 <% }); %>
 
 
+<%} else { %>
 
+<h1>Log in to play Change this so all comps are there but a button saying log in to play. Also change the black button link foe above</h1>
 
-
+  <% } %>
 
 
 </div>

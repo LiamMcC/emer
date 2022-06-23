@@ -23,9 +23,20 @@ body {font-family: "Open Sans"}
   <a href="/" class="w3-bar-item w3-button ">HOME</a>
   <a href="/activecompetitions" class="w3-bar-item w3-button">COMPETITIONS</a>
   <a href="/about" class="w3-bar-item w3-button">ABOUT</a>
-  <a href="#" class="w3-bar-item w3-button">LOGIN</i></a>
-  <a href="#" class="w3-bar-item w3-button">REGISTER</i></a>
+ 
   
+  <% if (isAuthenticated) { %>
+    <a href="/logout" class="w3-bar-item w3-button">LOG-OUT</a>
+    <a href="/profile" class="w3-bar-item w3-button">PROFILE</a>
+    <%} else { %>
+      <a href="/login" class="w3-bar-item w3-button">LOGIN</i></a>
+      <a href="/signup" class="w3-bar-item w3-button">REGISTER</i></a>
+    <% } %>
+
+
+
+
+
 
 </div>
 <span class="w3-button w3-xxlarge w3-white w3-right w3-hide-large" onclick="w3_open()"><i class="fa fa-bars"></i></span>
@@ -49,7 +60,7 @@ and is wrapped around the whole page content, except for the footer in this exam
     <a href="/" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Home</a>
     <a href="/activecompetitions" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Competitions</a>
     <a href="/about" class="w3-bar-item w3-button w3-text-grey w3-hover-black">About</a>
-    <a href="#" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Log-In</a>
-    <a href="#" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Register</a>
+    <a href="/login" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Log-In</a>
+    <a href="/signup" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Register</a>
   </div>
 </nav>

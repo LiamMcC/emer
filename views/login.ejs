@@ -1,0 +1,35 @@
+<%- include('header') -%>
+  
+
+<!-- Contact Section -->
+<div class="w3-container w3-light-grey" style="padding:18px 16px" id="contact">
+    <h3 class="w3-center">Log In</h3>
+    <p class="w3-center w3-large">Enter your details here and lets go</p>
+    <div style="margin-top:48px">
+     <!-- show any messages that come back with authentication -->
+     <% if (message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+      <br>
+      <form action="/login" method="post" >
+        <p><input class="w3-input w3-border" type="text" placeholder="Username" required name="username"></p>
+        <p><input class="w3-input w3-border" type="text" placeholder="Password" required name="password"></p>
+        <p>
+          <button class="w3-button w3-black" type="submit">
+            <i class="fa fa-paper-plane"></i> Log In
+          </button>
+        </p>
+      </form>
+      
+    </div>
+  </div>
+
+  <div class="w3-container w3-light-grey" style="padding:1px 16px" id="contact">
+    <h3 class="w3-center">Need an account</h3>
+    <p class="w3-center"><a href="/signup"class="w3-button w3-black">Signup</a></p>
+    <p class="w3-center">Or go <br><a href="/" class="w3-button w3-black">home</a>.</p>
+    </div>
+
+
+
+    <%- include('footer') -%>
