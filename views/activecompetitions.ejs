@@ -1,10 +1,10 @@
 
 <%- include('header') -%>
 <div class="w3-row w3-padding w3-border">
-
-
  
   <% if (isAuthenticated) { %>
+
+    
 
 <% result.forEach(function(contact) { %>
        
@@ -23,10 +23,11 @@
     </div>
 
     <div class="w3-justify">
-        <%= contact.cImage %>
-      <img src="../<%= contact.cImage %>" alt="win logo" style="width:100%" class="w3-padding-16">
+       
+        
+      <img src="../<%= contact.cImage %>" alt="win logo" style="width:30%" class="w3-padding-16">
       <p><%= contact.cDescription %></p>
-      <p class="w3-left"><button class="w3-button w3-white w3-border" onclick="likeFunction(this)"><b><i class="fa fa-thumbs-up"></i> Like (<%= contact.cLikes %>)</b></button></p>
+      <p class="w3-left"><a href="/like/<%= contact.clueID %>" class="w3-button w3-white w3-border"><b><i class="fa fa-thumbs-up"></i> Like (<%= contact.cLikes %>)</b></a></p>
       <p class="w3-right">
         <% if (contact.currentProgress  !== null) { %>   
         <a href="check/<%= contact.clueID %>/clue<%= contact.currentMax %>"><button class="w3-button w3-green" ><b>Play Now </b> </button></a>
@@ -57,7 +58,60 @@
 
 <%} else { %>
 
-<h1>Log in to play Change this so all comps are there but a button saying log in to play. Also change the black button link foe above</h1>
+
+
+  <% result.forEach(function(contact) { %>
+       
+    
+
+    <!-- Blog entry -->
+<div class="w3-container w3-white w3-margin w3-padding-large">
+  <div class="w3-center">
+    <h3><%= contact.cName %></h3>
+    <h5>Went Live On, <span class="w3-opacity"><%= contact.cDate %></span></h5>
+    
+    <h5> A user is currently on guess no <%= contact.currentMax %> for this competition</h5>
+    
+
+      
+  </div>
+
+  <div class="w3-justify">
+     
+      
+    <img src="../<%= contact.cImage %>" alt="win logo" style="width:30%" class="w3-padding-16">
+    <p><%= contact.cDescription %></p>
+    <p class="w3-left"><a href="/like/<%= contact.clueID %>" class="w3-button w3-white w3-border"><b><i class="fa fa-thumbs-up"></i> Like</b></a><button class="w3-button w3-white w3-border" onclick="likeFunction(this)"><b><i class="fa fa-thumbs-up"></i> Like (<%= contact.cLikes %>)</b></button></p>
+    <p class="w3-right">
+       
+      <a href="/login"><button class="w3-button w3-green" ><b>LogIn To Play </b> </button></a>
+      
+      
+     
+        
+      
+
+      <a href="/login"><button class="w3-button w3-black" ><b>Current Guess </b> <span class="w3-tag w3-white"><%= contact.currentMax %></span></button></a></p>
+      <p class="w3-clear"></p>
+    <div class="w3-row w3-margin-bottom" id="demo1" style="display:none">
+      <hr>
+      
+        <div class="w3-col l10 m9">
+          <h4>Winner <span class="w3-opacity w3-medium"><%= contact.cWinner %></span></h4>
+          
+        </div>
+    </div>
+  </div>
+</div>
+<hr>
+ 
+
+
+<% }); %>
+
+
+
+
 
   <% } %>
 

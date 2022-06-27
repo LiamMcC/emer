@@ -13,17 +13,47 @@ function isLoggedIn(req, res, next) {
 
 	// if user is authenticated in the session, carry on
 	if (req.isAuthenticated())
+    
 		return next();
 
 	// if they aren't redirect them to the home page
 	res.redirect('/');
 }
 
-router.get('/activeCompetitions',  function(req, res, next){  // I have this restricted for admin just for proof of concept
+function isAdmin(req, res, next) {
+
+	// if user is authenticated in the session, carry on
+	if (req.user.adminRights)
+		return next();
+
+	// if they aren't redirect them to the home page
+	res.send('you are no admin');
+}
+
+
+
+
+function isPaidUp(req, res, next) {
+    let sql = 'select * from userSubs where userName = "'+req.user.userName+'" order by Id DESC LIMIT 1';
+    let query = db.query(sql, (err,result) => {
+       if(err) throw err;
+      console.log(result[0].validSub)
+    //    if ( result[0].validSub == true) {res.send("Your Membership Is Valid")}
+    //    else { res.send("Your Membership Has expird please renew to continue playing")}
+    //    return result
+        
+    });
+   
+}
+
+router.get('/activeCompetitions',   function(req, res, next){  // I have this restricted for admin just for proof of concept
     //let sql = 'select * FROM clue where status = "active"; ' 
+
+    
     let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active";' 
     let query = db.query(sql, (err,result) => {
        if(err) throw err;
+
         res.render('activecompetitions', {result})
         
     });
@@ -32,7 +62,15 @@ router.get('/activeCompetitions',  function(req, res, next){  // I have this res
 
 
 router.get('/check/:id/:clueID', isLoggedIn, function(req, res, next){ 
-    var thedude = req.user.userName
+
+var thedude = req.user.userName
+
+
+let sql = 'select * from userSubs where userName = "'+req.user.userName+'" order by Id DESC LIMIT 1';
+// let sql = 'select  *  from clue where clueID = '+req.params.id+''
+let query = db.query(sql, (err,result) => {
+   if(err) throw err;
+   if (result[0].validSub == true) {
     let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" and clueID = '+req.params.id+';';
     // let sql = 'select  *  from clue where clueID = '+req.params.id+''
     let query = db.query(sql, (err,result) => {
@@ -45,33 +83,56 @@ router.get('/check/:id/:clueID', isLoggedIn, function(req, res, next){
         
     });
 
+   } 
 
-   
+   else { res.render("expiredSub")}
+    
+});
+ 
 
 
    });
+
+
+ 
 
 
    // *********** Remove this route when testing is complete 
 
-   router.get('/test', isLoggedIn, function(req, res, next){ 
-    var thedude = req.user.userName
+   router.get('/test', function(req, res, next){ 
+    
     //let sql = 'select currentProgress from userComps where userName = "'+thedude+'"'
-    let sql = 'select * FROM clue where status = "active" and clueID = (select currentProgress from userComps where userName = "'+thedude+'")';
+    let sql = 'select * from userSubs order by Id DESC LIMIT 1; select now() as facePlant';
     let query = db.query(sql, (err,result) => {
        if(err) throw err;
-       a = req.params.id
-       bother = req.params.clueID
-       console.log(result[0].currentProgress)
-       res.send("Hello")
+       let ms = Date.now();
+       console.log(result[1][0].facePlant)
+       var x1 = result[0][0].datePaid
+       var x2 = result[1][0].facePlant
+       var xDifference = (x2 - x1) /1000
+       var oldDateAge = (1 * 60 * 60 );
+       if ( xDifference > oldDateAge) {console.log("Expired")}
+       res.send("Hello the date paid is " + result[0][0].datePaid + "<br><br> the server date is " + result[1][0].facePlant + "<br><br>the difference is " + xDifference + "24 hours is " + oldDateAge + " <br><br>You should expire after at 11:01")
         
     });
 
+      });
 
-   
 
-
-   });
+      router.get('/x', function(req, res, next){ 
+    
+        //let sql = 'select currentProgress from userComps where userName = "'+thedude+'"'
+        let sql = 'select * from userSubs where userName = "'+req.user.userName+'" order by Id desc LIMIT 1';
+        let query = db.query(sql, (err,result) => {
+           if(err) throw err;
+          console.log(result[0].validSub)
+           if ( result[0].validSub == true) {res.send("Your Membership Is Valid")}
+           else { res.send("Your Membership Has expird please renew to continue playing")}
+           
+            
+        });
+    
+          });
 
    // **** Remove the above route when testing is complete
 
@@ -213,27 +274,72 @@ else {
 
 
 
-router.get('/liamstest', function(req, res, next) {
-	console.log('It Looks like the individual routes work');
-    res.render('index')
+router.get('/like/:clueID', function(req, res, next) {
+
+    
+let sql = 'update clue set cLikes = cLikes + 1 where clueId = "'+req.params.clueID+'"'
+let query = db.query(sql,function (error, results, next) {
+    if (error) throw error;
+    
+   // console.log(results)
+    res.redirect("/activecompetitions")
+  });
+
+
 });
 
 
 
-router.get('/sql', function(req, res, next) {
+
+
+
+router.get('/addone', function(req, res, next) {
 	
-    let sql = 'select clue1 from clue where clueID = 1'
-        let query = db.query(sql,function (error, results, next) {
-            if (error) throw error;
-            
-            console.log(results)
-            res.render("sql", {results})
-          });
+    
+
+          res.render("addclue")
+});
+
+router.post('/addone', function(req, res, next){
+    
+    var hash = crypto.createHash('sha256');
+    var q1 = req.body.clue1
+    var data1 = hash.update(q1, 'utf-8');
+    var q1hash = data1.digest('hex'); 
+
+    var hash2 = crypto.createHash('sha256');
+    var q2 = req.body.clue2
+    var data2 = hash2.update(q2, 'utf-8');
+    var q2hash = data2.digest('hex'); 
+
+    var hash3 = crypto.createHash('sha256');
+    var q3 = req.body.clue3
+    var data3 = hash3.update(q3, 'utf-8');
+    var q3hash = data3.digest('hex'); 
+
+    var hash4 = crypto.createHash('sha256');
+    var q4 = req.body.clue4
+    var data4 = hash4.update(q4, 'utf-8');
+    var q4hash = data4.digest('hex'); 
+
+    var hash5 = crypto.createHash('sha256');
+    var q5 = req.body.clue5
+    var data5 = hash5.update(q5, 'utf-8');
+    var q5hash = data5.digest('hex'); 
+    
+    
+    let sql = 'insert into clue (clue1, clue2, clue3, clue4, clue5, cName, cPrize, q1Text, q2Text, q3Text, q4Text, q5Text, cDescription  ) values ("'+ q1hash+'", "'+ q2hash+'", "'+ q3hash+'", "'+ q4hash+'", "'+ q5hash+'", "'+ req.body.clueName+'", "'+ req.body.cluePrize+'", "'+ req.body.question1+'", "'+ req.body.question2+'", "'+ req.body.question3+'", "'+ req.body.question4+'", "'+ req.body.question5+'", "'+ req.body.description+'")'
+    let query = db.query(sql,function (error, results, next) {
+        if (error) throw error;
+        
+       // console.log(results)
+        res.redirect("/activecompetitions")
+      });
+    
+
 
 
 });
-
-
 
 
 module.exports = router;

@@ -1,28 +1,148 @@
 
 <%- include('header') -%>
 <!-- Promo Section - "We know design" -->
-<div class="w3-container w3-light-grey" style="padding:128px 16px">
-	<div class="w3-row-padding">
-	  <div class="w3-col m6">
-		<h3><%= user.userName %>'s Profile</h3>
-		<p>The current email address we have for you is: <%= user.email %>
-			<br>The current password we have for you is: <%= user.password %>
-			<br>The current user level for you is: <%= user.adminRights %></p>
-		<p><a href="/editprofile" class="w3-button w3-green"><i class="fa fa-th"> </i> Edit Your Profile</a>
-			<p><a href="/logout" class="w3-button w3-black"><i class="fa fa-th"> </i> Log Out</a>
 
-			
+
+  <!-- ********************************************************************-->
+  <div class="w3-row w3-padding w3-border">
+
+    <!-- Blog entries -->
+    <div class="w3-col l8 s12">
+    
+      <!-- Blog entry -->
+      <div class="w3-container w3-white w3-margin w3-padding-large">
+        <div class="w3-center">
+          <h3><%= user.userName %>'s Profile</h3>
+          <h5><%= user.email %> </h5>
+        </div>
+
+        <div class="w3-justify">
+          <img src="/w3images/girl_hat.jpg" alt="Girl Hat" style="width:100%" class="w3-padding-16">
+          <p><strong>Stats!</strong> Just Some Info For You</p>
+          <p>
+			<a href="/logout" class="w3-button w3-black"><i class="fa fa-th"> </i> Log Out</a>
+		  <a href="/editprofile" class="w3-button w3-blue"><i class="fa fa-th"> </i> Edit Your Profile</a>
+      <a href="/paymentdetails" class="w3-button w3-green"><i class="fa fa-th"> </i> View / Pay Subscription</a>
+		
 		</p>
-	  </div>
-	  <div class="w3-col m6">
-		<img class="w3-image w3-round-large" src="running.jpg" alt="Buildings" width="30%" >
-	  </div>
-	</div>
+          <p class="w3-right"><button class="w3-button w3-black" onclick="myFunction('demo1')" id="myBtn"><b>Replies  </b> <span class="w3-tag w3-white">1</span></button></p>
+          <p class="w3-clear"></p>
+          <div class="w3-row w3-margin-bottom" id="demo1" style="display:none">
+            <hr>
+     <!-- latet Competition -->
+	 <div class="w3-white w3-margin">
+        <div class="w3-container w3-padding w3-green">
+          <h4>Latest Competion You Are In</h4>
+          
+        </div>
+        <div class="w3-container w3-white">
+			<% result[2].forEach(function(contact) { %>
+				<p>You are currently on Clue <%= contact.currentProgress %> of our <%= contact.cName %> competition</p>
+                <% if( contact.currentProgress == 1){ %>
+					<h1><%= result[0].q1Text %></h1>
+					<% } else if( contact.currentProgress == 1){ %>  
+						<h1><%= result[0].q2Text %></h1>
+						<% } else if( contact.currentProgress == 1){ %>  
+							<h1><%= result[0].q3Text %></h1>
+							<% } else if( contact.currentProgress == 1){ %>  
+								<h1><%= result[0].q4Text %></h1>
+								<% } else if( contact.currentProgress == 1){ %>  
+									<h1><%= result[0].q5Text %></h1>
+									
+				<% } %>
 
 
-	<div class="w3-row-padding">
-<p><a href="#work" class="w3-button w3-red"><i class="fa fa-th"> </i> Delete Account</a></p>
+				<p>Current Clue: <%= contact.q1Text %></p>
+				<p>				
+				<a href="check/<%= contact.clueID %>/<%= contact.currentProgress %>"><button class="w3-button w3-green" ><b>Play Now </b> </button></a>
+			</p>	
+			 
+			  <% }); %>
+          
+         
+        </div>
+      </div>
+          </div>
+        </div>
+      </div>
+      <hr>
 
-	</div>
+
+
+      
+    <!-- END BLOG ENTRIES -->
+    </div>
+
+    <!-- About/Information menu -->
+    <div class="w3-col l4">
+      <!-- About Card -->
+      <div class="w3-white w3-margin">
+        
+        <div class="w3-container w3-blue">
+          <h4>Our Latest Competition</h4>
+
+		</div>
+		<div class="w3-container w3-padding">
+			
+			<% result[1].forEach(function(contact) { %>
+				<p><%= contact.cName %></p>
+				<p>First Clue: <%= contact.q1Text %></p>
+									
+			
+				<a href="/activecompetitions"><button class="w3-button w3-green" ><b>Play Now </b> </button></a>
+			 
+			  <% }); %>
+
+
+
+		</div>
+      </div>
+      <hr>
+
+      <!-- Posts -->
+      <div class="w3-white w3-margin">
+        <div class="w3-container w3-padding w3-red">
+          <h4>Latest Winners</h4>
+        </div>
+
+        <ul class="w3-ul w3-hoverable w3-white">
+			<% result[0].forEach(function(contact) { %>
+          <li class="w3-padding-16">
+           
+            <span><%= contact.userName %></span>
+          </li>
+          <% }); %>
+         
+        
+        </ul>
+
+        
+      </div>
+      <hr>
+
+	
+
+	  <%- include('ourSocials') -%>
+   
+
+
+      
+ 
+
+    <!-- END About/Intro Menu -->
+    </div>
+
+  <!-- END GRID -->
   </div>
+
+  <div class="w3-container w3-light-grey" style="padding:8px 16px">
+
+	<p><a href="#work" class="w3-button w3-red"><i class="fa fa-th"> </i> Delete Account</a></p>
+	
+	  </div>
+</div>
+
+
   <%- include('footer') -%>
+
+

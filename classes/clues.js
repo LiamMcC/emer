@@ -71,7 +71,7 @@ console.log("The id is " + y)
                     
                     
                         // 'select * FROM clue where status = "active" and clueID = '+req.params.id+''
-             let sql = 'update userComps set currentProgress = "'+progs+'" where comp = "'+cmp+'" and userName = "'+progs+'"';
+             let sql = 'update userComps set currentProgress = "'+progs+'" where comp = "'+cmp+'" and userName = "'+usNm+'"';
              let xxx = db.query(sql);
                 
              }

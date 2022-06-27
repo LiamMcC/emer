@@ -36,6 +36,8 @@ router.use(session({
     next();
   });
 
+
+  
 // --------------------------------------------------------- Authenthication ------------------------------------------------------------ //
 
 	// =====================================
@@ -87,9 +89,21 @@ router.use(session({
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
 	router.get('/profile', isLoggedIn, function(req, res) {
-		res.render('profile', {
-			user : req.user // get the user out of session and pass to template
-		});
+        
+        let sql = 'select DISTINCT userName FROM winners LIMIT 3; select * from clue order by clueId DESC Limit 1;SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" and userComps.username = "lmccabe" order by comp DESC limit 1;SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where userComps.username = "lmccabe" order by comp DESC;;' 
+        let query = db.query(sql, (err,result) => {
+
+           
+           if(err) throw err;
+           res.render('profile', {
+            user : req.user,result // get the user out of session and pass to template
+        });
+       
+            
+        });
+
+
+		
 	});
 
 
@@ -106,6 +120,29 @@ router.use(session({
           res.redirect('/');
         });
       });
+
+
+      router.get('/paymentdetails',isLoggedIn,  function(req, res, next){  // I have this restricted for admin just for proof of concept
+       // let sql = 'select * FROM clue where status = "active"; ' 
+        let sql = 'select * from userSubs where userName = "'+req.user.userName+'";' 
+        let query = db.query(sql, (err,result) => {
+           if(err) throw err;
+           res.render('paymentdetails', {user : req.user, result})
+            
+        });
+    
+       });
+
+      router.get('/paysubscription',isLoggedIn,  function(req, res, next){  // I have this restricted for admin just for proof of concept
+        //let sql = 'select * FROM clue where status = "active"; ' 
+        let sql = 'insert into userSubs (userName, email, subValue) values ("'+req.user.userName+'", "'+req.user.email+'", 20);' 
+        let query = db.query(sql, (err,result) => {
+           if(err) throw err;
+            res.redirect('/profile')
+            
+        });
+    
+       });
 
 
 // route middleware to make sure

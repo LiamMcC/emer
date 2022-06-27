@@ -6,7 +6,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs'); // Set the template engine (thanks Kevin!)
 
 app.use(express.static('public'));
-
+app.use(express.static("images")); // Allow access to images
 //Routes
 app.use(require('./routes'));  
 
