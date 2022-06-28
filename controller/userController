@@ -20,6 +20,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 router.use(cookieParser()); // read cookies (needed for auth)
 
+var aUser = require("../classes/user.js");
 
 // required for passport
 router.use(session({
@@ -223,7 +224,7 @@ function isAdmin(req, res, next) {
                     };
 
                     var insertQuery = "INSERT INTO users ( username, email, password ) values (?,?,?)";
-
+                    aUser.newPersonDefaults(username, req.body.email)
                     db.query(insertQuery,[newUserMysql.username, newUserMysql.email, newUserMysql.password],function(err, rows) {
                         newUserMysql.Id = rows.insertId;
 

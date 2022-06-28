@@ -31,6 +31,15 @@ router.get('/about', function(req, res, next) {
     })
 });
 
+
+
+router.get('/adminarea', function(req, res, next) {
+    console.log('It Looks like the individual routes work');
+    res.render('adminarea',{
+        user : req.user // get the user out of session and pass to template
+    })
+});
+
 module.exports = router;
 
 

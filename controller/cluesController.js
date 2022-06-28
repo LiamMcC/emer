@@ -49,8 +49,19 @@ function isPaidUp(req, res, next) {
 router.get('/activeCompetitions',   function(req, res, next){  // I have this restricted for admin just for proof of concept
     //let sql = 'select * FROM clue where status = "active"; ' 
 
+    if (req.isAuthenticated()) {
+        //let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" and (userComps.userName = "'+req.user.userName+'" or userComps.userName is null)' 
+        let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" ;' 
+        let query = db.query(sql, (err,result) => {
+           if(err) throw err;
     
-    let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active";' 
+            res.render('activecompetitions', {result, user : req.user})
+            
+        });
+
+} else {
+    
+    let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" ;' 
     let query = db.query(sql, (err,result) => {
        if(err) throw err;
 
@@ -58,7 +69,13 @@ router.get('/activeCompetitions',   function(req, res, next){  // I have this re
         
     });
 
+
+
+}
+
    });
+
+
 
 
 router.get('/check/:id/:clueID', isLoggedIn, function(req, res, next){ 

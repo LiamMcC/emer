@@ -1,0 +1,17 @@
+
+<%- include('header') -%>
+<hr>
+This is the Admin Page   
+<hr>   
+</p>
+
+
+
+<% if (user.adminRights == true) { %>
+    HI ADMIN GUY
+    <%} else { %>
+      STRANGER DANGER
+    <% } %>
+
+<%- include('footer') -%>
+  
