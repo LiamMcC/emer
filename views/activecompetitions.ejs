@@ -15,7 +15,7 @@
     <div class="w3-center">
       <h3><%= contact.cName %></h3>
       <h5>Went Live On, <span class="w3-opacity"><%= contact.cDate %></span></h5>
-      <% if (contact.currentProgress  !== null && contact.userName == user.userName) { %>
+      <% if (contact.currentProgress  !== 0 && contact.userName == user.userName) { %>
       <h5> <%= user.userName %> You are currently on clue <%= contact.currentProgress %></h5>
       <%} else { %>
 <h5>You Have Not Tried This Competition Yet</h5>
@@ -29,8 +29,8 @@
       <p><%= contact.cDescription %></p>
       <p class="w3-left"><a href="/like/<%= contact.clueID %>" class="w3-button w3-white w3-border"><b><i class="fa fa-thumbs-up"></i> Like (<%= contact.cLikes %>)</b></a></p>
       <p class="w3-right">
-        <% if (contact.currentProgress  !== null && contact.userName == user.userName ) { %>   
-        <a href="check/<%= contact.clueID %>/clue<%= contact.currentMax %>"><button class="w3-button w3-green" ><b>Play Now </b> </button></a>
+        <% if (contact.currentProgress  !== 0 && contact.userName == user.userName ) { %>   
+        <a href="check/<%= contact.clueID %>/clue<%= contact.currentProgress %>"><button class="w3-button w3-green" ><b>Play Now x </b> </button></a>
         
         
         <%} else { %>

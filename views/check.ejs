@@ -6,6 +6,9 @@
 
 <div class="w3-white w3-margin">
     <div class="w3-container w3-padding w3-black">
+
+
+      
       <h4><%= result[0].cName %> Guessing to get one step closer to <%= result[0].cPrize %></h4>
     </div>
     <div class="w3-container w3-white">
@@ -14,7 +17,7 @@
 <H4> Liam this player is currently on <%= result[0].currentProgress %></H4>
         <% var thenum = bother.match(/\d+/)[0]  %>
         <h1>The num is <%= thenum %> and current progress is <%= result[0].currentProgress %></h1>
-        <% if( result[0].currentProgress === null ||  result[0].currentProgress == thenum ){ %>
+        <% if( result[0].currentProgress === 0 ||  result[0].currentProgress == thenum ){ %>
       
             
 

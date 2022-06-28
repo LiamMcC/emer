@@ -51,7 +51,7 @@ router.get('/activeCompetitions',   function(req, res, next){  // I have this re
 
     if (req.isAuthenticated()) {
         //let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" and (userComps.userName = "'+req.user.userName+'" or userComps.userName is null)' 
-        let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" ;' 
+        let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" and userComps.userName = "'+req.user.userName+'" group by clueID;' 
         let query = db.query(sql, (err,result) => {
            if(err) throw err;
     
@@ -61,7 +61,7 @@ router.get('/activeCompetitions',   function(req, res, next){  // I have this re
 
 } else {
     
-    let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" ;' 
+    let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" group by clueID;' 
     let query = db.query(sql, (err,result) => {
        if(err) throw err;
 
@@ -88,11 +88,12 @@ let sql = 'select * from userSubs where userName = "'+req.user.userName+'" order
 let query = db.query(sql, (err,result) => {
    if(err) throw err;
    if (result[0].validSub == true) {
-    let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" and clueID = '+req.params.id+';';
+    let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" and clueID = '+req.params.id+' and userName = "'+req.user.userName+'";';
     // let sql = 'select  *  from clue where clueID = '+req.params.id+''
     let query = db.query(sql, (err,result) => {
        if(err) throw err;
        a = req.params.id
+      
        bother = req.params.clueID
        x = result[1]
        console.log(bother)
@@ -139,13 +140,15 @@ let query = db.query(sql, (err,result) => {
       router.get('/x', function(req, res, next){ 
     
         //let sql = 'select currentProgress from userComps where userName = "'+thedude+'"'
-        let sql = 'select * from userSubs where userName = "'+req.user.userName+'" order by Id desc LIMIT 1';
+        let sql = 'select * FROM clue';
         let query = db.query(sql, (err,result) => {
            if(err) throw err;
-          console.log(result[0].validSub)
-           if ( result[0].validSub == true) {res.send("Your Membership Is Valid")}
-           else { res.send("Your Membership Has expird please renew to continue playing")}
-           
+           result.forEach(function(row) {
+            let sql = 'INSERT INTO userComps (userName, comp, currentProgress) values ("Alex", '+row.clueID+', 0)';
+            let xxx = db.query(sql);
+            console.log(row.clueID);
+          });
+           res.send("Check Data")
             
         });
     
@@ -178,7 +181,7 @@ var thedude = req.user.userName
    if (rows[0].clue1 == generatedHash) {
        res.render("matchedClue")
        Clues.updateMax(2, rew)
-       Clues.newUserLevel(thedude, rew, 2 )
+       Clues.updateUserLevel(thedude, rew, 2 )
        }
    else {
        res.render("wrongClue")

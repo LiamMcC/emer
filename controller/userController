@@ -225,6 +225,7 @@ function isAdmin(req, res, next) {
 
                     var insertQuery = "INSERT INTO users ( username, email, password ) values (?,?,?)";
                     aUser.newPersonDefaults(username, req.body.email)
+                    aUser.newCompDefaults(username)
                     db.query(insertQuery,[newUserMysql.username, newUserMysql.email, newUserMysql.password],function(err, rows) {
                         newUserMysql.Id = rows.insertId;
 

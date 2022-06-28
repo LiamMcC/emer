@@ -17,6 +17,26 @@ module.exports = class User {
                    
                 }
 
+
+
+                static newCompDefaults (theWho) {
+
+
+                    let sql = 'select * FROM clue';
+                    let query = db.query(sql, (err,result) => {
+                       if(err) throw err;
+                       result.forEach(function(row) {
+                        let sql = 'INSERT INTO userComps (userName, comp, currentProgress) values ("'+theWho+'", '+row.clueID+', 0)';
+                        let xxx = db.query(sql);
+                        console.log(row.clueID);
+                      });
+                       
+                        
+                    });
+
+
+                }
+
        
  
   
