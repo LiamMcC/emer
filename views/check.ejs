@@ -1,73 +1,67 @@
 
 <%- include('header') -%>
-
-
-
-
-<div class="w3-white w3-margin">
-    <div class="w3-container w3-padding w3-black">
-
-
-      
-      <h4><%= result[0].cName %> Guessing to get one step closer to <%= result[0].cPrize %></h4>
-    </div>
-    <div class="w3-container w3-white">
-      <p>Simple! Enter the guess to the clue below and see if you are right or wrong.</p>
-      <p>You are playing <%= result[0].cName %> which is currently on clue No. <%= result[0].currentMax %> you are guessing for <%= bother %></p>
-<H4> Liam this player is currently on <%= result[0].currentProgress %></H4>
-        <% var thenum = bother.match(/\d+/)[0]  %>
-        <h1>The num is <%= thenum %> and current progress is <%= result[0].currentProgress %></h1>
-        <% if( result[0].currentProgress === 0 ||  result[0].currentProgress == thenum ){ %>
+<div class="w3-content" style="max-width:1100px">
+  <!-- Menu Section -->
+  <div class="w3-row w3-padding-64" id="menu">
+    <div class="w3-col l6 w3-padding-large">
+      <h1 class="w3-center"><%= result[0].cName %></h1><br>
+      <h4>Prize for winning this comp. is <%= result[0].cPrize %></h4>
+      <p class="w3-text-grey">Every correct guess gets you one step closer to the <%= result[0].cPrize %></p><br>
+    
+      <h4>Honey Almond Granola with Fruits</h4>
+      <p class="w3-text-grey">Natural cereal of honey toasted oats, raisins, almonds and dates 7.00</p><br>
+      <% var thenum = bother.match(/\d+/)[0]  %>
+      <% if( result[0].currentProgress === 0 ||  result[0].currentProgress == thenum ){ %>
       
             
 
-                  <% if( bother == "clue1"){ %>
-                      <h1><%= result[0].q1Text %></h1>
-                      <% } else if( bother == "clue2"){ %>  
-                          <h1><%= result[0].q2Text %></h1>
-                          <% } else if( bother == "clue3"){ %>  
-                              <h1><%= result[0].q3Text %></h1>
-                              <% } else if( bother == "clue4"){ %>  
-                                  <h1><%= result[0].q4Text %></h1>
-                                  <% } else if( bother == "clue5"){ %>  
-                                      <h1><%= result[0].q5Text %></h1>
-                                      
-                  <% } %>
-<a href="/check/<%= a %>/<%= bother %>">Where to Liam <%= bother %></a>
-                  <form accept-charset="UTF-8" action="/check/<%= a %>/<%= bother %>" method="post">
-                    <p><input name="firstClue" class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
-                    <p><button class="w3-button w3-block w3-red">Check My Clue</button></p>
-                                </form>
-                  <% }  else { %>  
-                    <h3>You cant cheat your way to the end go back and play clues in order</h3>
-                    <% } %>
+        <% if( bother == "clue1"){ %>
+          <h1 class="w3-center"><%= result[0].cName %></h1>
+            <h4>This guess is for <%= bother %></h4>
+            <% } else if( bother == "clue2"){ %>  
+              <h4>This guess is for <%= bother %></h4>
+                <h4><%= result[0].q2Text %></h4>
+                <% } else if( bother == "clue3"){ %>  
+                  <h4>This guess is for <%= bother %></h4>
+                    <h4><%= result[0].q3Text %></h4>
+                    <% } else if( bother == "clue4"){ %>  
+                      <h4>This guess is for <%= bother %></h4>
+                        <h4><%= result[0].q4Text %></h4>
+                        <% } else if( bother == "clue5"){ %>  
+                          <h4>This guess is for <%= bother %></h4>
+                            <h4><%= result[0].q5Text %></h4>
+                            
+        <% } %>
+
+        <form accept-charset="UTF-8" action="/check/<%= a %>/<%= bother %>" method="post">
+          <p><input name="firstClue" class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
+          <p><button class="w3-button w3-block w3-red">Check My Clue</button></p>
+                      </form>
+        <% }  else { %>  
+          <h3>You cant cheat your way to the end go back and play clues in order</h3>
+          <% } %>
+
+
+
+
+      <h4>Remember: All clues are one word and case sensitive.</h4>
+       <p>For example if the correct answer is <b>Clue</b> then the way you must type it is Clue not clue and not CLUE. Do not type a space or any other charachter at the end of your guess. If you do not use upper case for the first letter and lower case for all others it will register as a wrong guess.</p>
+    </div>
     
-    
+    <div class="w3-col l6 w3-padding-large">
+      <img src="./../../<%= result[0].cImage %>" class="w3-round w3-image w3-opacity-min" alt="Menu" style="width:100%">
+    <p><%= result[0].cDescription %></p>
     </div>
   </div>
 
-
-
-
-
-
-
-<form accept-charset="UTF-8" action="/check/<%= a %>/<%= bother %>" method="post">
-     
-      
-    
-        
-                     
-     
-        
-     
-     
-     
-      
-
-  
+  <hr>
 </div>
-</form>
+
+
+
+
+
+
 
 <%- include('footer') -%>
   

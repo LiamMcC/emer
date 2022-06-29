@@ -16,6 +16,7 @@ var crypto = require('crypto');
 router.use(require('./controller/staticpagesController'))
 router.use(require('./controller/cluesController'))
 router.use(require('./controller/userController'))
+router.use(require('./controller/adminController'))
 
 
 

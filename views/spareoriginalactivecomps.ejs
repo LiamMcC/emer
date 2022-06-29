@@ -4,22 +4,21 @@
  
   <% if (isAuthenticated) { %>
 
-    <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+    
 
 <% result.forEach(function(contact) { %>
        
 
-  
+  <div class="w3-row-padding w3-padding-16 w3-center" id="food">
     <div class="w3-third">
-      <div class="w3-container w3-white">
       <img src="../<%= contact.cImage %>" alt="Sandwich" style="width:100%">
       <h3><%= contact.cName %></h3>
       <h5>Went Live On, <span class="w3-opacity"><%= contact.cDate %></span></h5>
-      <h3>Prize <%= contact.cPrize %></h3>
+
       <% if (contact.currentProgress  !== 0 && contact.userName == user.userName) { %>
-        <p> <%= user.userName %> You are currently on clue <%= contact.currentProgress %></p>
+        <h5> <%= user.userName %> You are currently on clue <%= contact.currentProgress %></h5>
         <%} else { %>
-  <p>You Have Not Tried This Competition Yet</p>
+  <h5>You Have Not Tried This Competition Yet</h5>
           <% } %>  
 
 
@@ -47,23 +46,87 @@
                 </div>
             </div>
           </div>
-    </div>
+
 
     </div>
 
 
 
    
+  </div>
   
-  
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+      <!-- Blog entry -->
+  <div class="w3-container w3-white w3-margin w3-padding-large">
+    <div class="w3-center">
+      <h3><%= contact.cName %></h3>
+      <h5>Went Live On, <span class="w3-opacity"><%= contact.cDate %></span></h5>
+      <% if (contact.currentProgress  !== 0 && contact.userName == user.userName) { %>
+      <h5> <%= user.userName %> You are currently on clue <%= contact.currentProgress %></h5>
+      <%} else { %>
+<h5>You Have Not Tried This Competition Yet</h5>
+        <% } %>  
+    </div>
+
+    <div class="w3-justify">
+       
+        
+      <img src="../<%= contact.cImage %>" alt="win logo" style="width:30%" class="w3-padding-16">
+      <p><%= contact.cDescription %></p>
+      <p class="w3-left"><a href="/like/<%= contact.clueID %>" class="w3-button w3-white w3-border"><b><i class="fa fa-thumbs-up"></i> Like (<%= contact.cLikes %>)</b></a></p>
+      <p class="w3-right">
+        <% if (contact.currentProgress  !== 0 && contact.userName == user.userName ) { %>   
+        <a href="check/<%= contact.clueID %>/clue<%= contact.currentProgress %>"><button class="w3-button w3-green" ><b>Play Now x </b> </button></a>
+        
+        
+        <%} else { %>
+          <a href="check/<%= contact.clueID %>/clue1"><button class="w3-button w3-green" ><b>Play Now </b> </button></a>
+        <% } %>  
+
+        <a href="check/<%= contact.clueID %>/clue<%= contact.currentProgress %>"><button class="w3-button w3-black" ><b>Current Guess </b> <span class="w3-tag w3-white"><%= contact.currentMax %></span></button></a></p>
+        <p class="w3-clear"></p>
+      <div class="w3-row w3-margin-bottom" id="demo1" style="display:none">
+        <hr>
+        
+          <div class="w3-col l10 m9">
+            <h4>Winner <span class="w3-opacity w3-medium"><%= contact.cWinner %></span></h4>
+            
+          </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+   
 
 
 <% }); %>
-</div>
+
 
 <%} else { %>
 
@@ -78,7 +141,6 @@
   <div class="w3-center">
     <h3><%= contact.cName %></h3>
     <h5>Went Live On, <span class="w3-opacity"><%= contact.cDate %></span></h5>
-    <h3>Prize <%= contact.cPrize %></h3>
     
     <h5> A user is currently on guess no <%= contact.currentMax %> for this competition</h5>
     

@@ -9,7 +9,7 @@ router.use(require('./userController'))
 // Define the home page route
 router.get('/', function(req, res) {
 
-    let sql = 'select dateWon FROM winners' 
+    let sql = 'select winners.*, clue.cName from winners JOIN clue ON winners.comp=clue.clueId order by Id DESC ;select * from clue where status = "active" ORDER BY RAND() LIMIT 2;select * from clue where status = "active" ORDER BY clueID DESC LIMIT 3;' 
     let query = db.query(sql, (err,result) => {
        if(err) throw err;
        res.render('index', {
@@ -33,12 +33,7 @@ router.get('/about', function(req, res, next) {
 
 
 
-router.get('/adminarea', function(req, res, next) {
-    console.log('It Looks like the individual routes work');
-    res.render('adminarea',{
-        user : req.user // get the user out of session and pass to template
-    })
-});
+
 
 module.exports = router;
 
