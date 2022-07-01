@@ -5,6 +5,9 @@ var bodyParser = require("body-parser") // call body parser module and make use 
 router.use(bodyParser.urlencoded({extended:true}));
 var db = require('../db');
 
+
+var Email = require("../classes/email.js");
+
 router.use(require('./userController'))
 // Define the home page route
 router.get('/', function(req, res) {
@@ -32,6 +35,13 @@ router.get('/about', function(req, res, next) {
 });
 
 
+router.get('/mail', function(req, res, next) {
+    console.log('It Looks like the mail sent');
+
+    Email.liamo()
+    //Email.louise()
+    res.send('Your Good')
+});
 
 
 

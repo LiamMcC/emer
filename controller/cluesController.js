@@ -112,6 +112,71 @@ let query = db.query(sql, (err,result) => {
    });
 
 
+   router.get('/pendingcomps',   function(req, res, next){  // I have this restricted for admin just for proof of concept
+      //let sql = 'select * FROM clue where status = "active"; ' 
+  
+      if (req.isAuthenticated()) {
+          //let sql = 'SELECT * FROM clue left JOIN userComps ON clue.clueId=userComps.comp where clue.status= "active" and (userComps.userName = "'+req.user.userName+'" or userComps.userName is null)' 
+          let sql = 'SELECT * FROM clue  where clue.status= "inTest" ;' 
+          let query = db.query(sql, (err,result) => {
+             if(err) throw err;
+      
+              res.render('pendingcomps', {result, user : req.user})
+              
+          });
+  
+  } else {
+      
+     
+  
+          res.render('activecompetitions', {result})
+          
+    
+  
+  
+  
+  }
+  
+     });
+
+
+
+   router.get('/intestclue/:id/:clueID', isLoggedIn, function(req, res, next){ 
+
+      var thedude = req.user.userName
+      
+      
+      let sql = 'select * from users where userName = "'+req.user.userName+'" order by Id DESC LIMIT 1';
+      // let sql = 'select  *  from clue where clueID = '+req.params.id+''
+      let query = db.query(sql, (err,result) => {
+         if(err) throw err;
+         if (result[0].adminRights == true) {
+          let sql = 'SELECT * FROM clue where clue.status= "inTest" and clueID = '+req.params.id+' ;';
+          // let sql = 'select  *  from clue where clueID = '+req.params.id+''
+          let query = db.query(sql, (err,result) => {
+             if(err) throw err;
+             a = req.params.id
+            
+             bother = req.params.clueID
+             x = result[1]
+             console.log(bother)
+             res.render('intestclue.ejs', {a,bother, result, x})
+              
+          });
+      
+         } 
+      
+         else { res.render("expiredSub")}
+          
+      });
+       
+      
+      
+         });
+      
+      
+
+
  
 
 
@@ -348,7 +413,7 @@ router.post('/addone', function(req, res, next){
     var q5hash = data5.digest('hex'); 
     
     
-    let sql = 'insert into clue (clue1, clue2, clue3, clue4, clue5, cName, cPrize, q1Text, q2Text, q3Text, q4Text, q5Text, cDescription  ) values ("'+ q1hash+'", "'+ q2hash+'", "'+ q3hash+'", "'+ q4hash+'", "'+ q5hash+'", "'+ req.body.clueName+'", "'+ req.body.cluePrize+'", "'+ req.body.question1+'", "'+ req.body.question2+'", "'+ req.body.question3+'", "'+ req.body.question4+'", "'+ req.body.question5+'", "'+ req.body.description+'")'
+    let sql = 'insert into clue (clue1, clue2, clue3, clue4, clue5, cName, cPrize, q1Text, q2Text, q3Text, q4Text, q5Text, cDescription , status, cLikes ) values ("'+ q1hash+'", "'+ q2hash+'", "'+ q3hash+'", "'+ q4hash+'", "'+ q5hash+'", "'+ req.body.clueName+'", "'+ req.body.cluePrize+'", "'+ req.body.question1+'", "'+ req.body.question2+'", "'+ req.body.question3+'", "'+ req.body.question4+'", "'+ req.body.question5+'", "'+ req.body.description+'", "inTest", 0)'
     let query = db.query(sql,function (error, results, next) {
         if (error) throw error;
         

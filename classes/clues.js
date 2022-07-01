@@ -77,6 +77,47 @@ console.log("The id is " + y)
              }
 
 
+
+           static setItLive(y){
+                    console.log("The id is " + y)
+                        let sql = 'UPDATE clue SET status = "active", currentMax = 1 where clueID = '+y+'';
+                        let query = db.query(sql, (err,res) => {
+                           if(err) throw err;
+                            console.log("Updated")
+                            });
+
+                              
+
+
+                      }
+
+
+
+                      static setItLiveForAllUsers(y){
+                        console.log("The id is " + y)
+                            let sql = 'select * from Users';
+                            let query = db.query(sql, (err,result) => {
+                               if(err) throw err;
+                                
+                               result.forEach(function(row) {
+                                let sql = 'INSERT INTO userComps (userName, comp, currentProgress) values ("'+row.userName+'", '+y+', 0)';
+                                let xxx = db.query(sql);
+                                console.log(row.userName);
+                              });
+
+
+
+
+                                });
+    
+                                  
+    
+    
+                          }
+            
+
+                      
+
 // ****** v2 end here ******
 
 
