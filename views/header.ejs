@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Win. Ie Competions played by the members of the competition club</title>
+
+<title><%= typeof title != 'undefined' ? title : 'Win. Ie Competions played by the members of the competition club' %>  </title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -27,8 +28,11 @@ body {font-family: "Open Sans"}
 <div class="w3-bar w3-black w3-hide-small">
   <a href="/" class="w3-bar-item w3-button ">HOME</a>
   <a href="/activecompetitions" class="w3-bar-item w3-button">COMPETITIONS</a>
-  <a href="/about" class="w3-bar-item w3-button">ABOUT</a>
-  <a href="/addone" class="w3-bar-item w3-button">ADD</a>
+  <a href="/information/about" class="w3-bar-item w3-button">ABOUT</a>
+  <a href="/information/contact" class="w3-bar-item w3-button">CONTACT</a>
+  <a href="/information/faq" class="w3-bar-item w3-button">F.A.Q</a>
+  <a href="/information/partnership" class="w3-bar-item w3-button">PARTNER</a>
+ 
  
   
   <% if (isAuthenticated) { %>

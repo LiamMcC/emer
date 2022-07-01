@@ -55,6 +55,25 @@ router.get('/adminallusers', isLoggedIn, isAdmin, function(req, res, next) {
 
 });
 
+router.get('/adminsitedetails', isLoggedIn, isAdmin, function(req, res, next) {
+    
+    // let sql = 'SELECT * FROM clue left JOIN winners ON clue.clueID=winners.comp where status = "solved" order by clueID DESC' 
+    // let query = db.query(sql, (err,result) => {
+    //    if(err) throw err;
+    //    res.render('adminsitedetails', {
+    //     user : req.user,result // get the user out of session and pass to template
+    // });
+       
+        
+    // });
+    
+    res.render('adminsitedetails')
+
+});
+
+
+
+
 
 router.get('/adminallwinners', isLoggedIn, isAdmin, function(req, res, next) {
     
@@ -231,6 +250,91 @@ else {
      
    });
 
+
+
+
+   router.get('/addone', isLoggedIn, isAdmin,function(req, res, next) {
+	
+    
+
+    res.render("addclue")
+});
+
+router.post('/addone', isLoggedIn, isAdmin, function(req, res, next){
+
+var hash = crypto.createHash('sha256');
+var q1 = req.body.clue1
+var data1 = hash.update(q1, 'utf-8');
+var q1hash = data1.digest('hex'); 
+
+var hash2 = crypto.createHash('sha256');
+var q2 = req.body.clue2
+var data2 = hash2.update(q2, 'utf-8');
+var q2hash = data2.digest('hex'); 
+
+var hash3 = crypto.createHash('sha256');
+var q3 = req.body.clue3
+var data3 = hash3.update(q3, 'utf-8');
+var q3hash = data3.digest('hex'); 
+
+var hash4 = crypto.createHash('sha256');
+var q4 = req.body.clue4
+var data4 = hash4.update(q4, 'utf-8');
+var q4hash = data4.digest('hex'); 
+
+var hash5 = crypto.createHash('sha256');
+var q5 = req.body.clue5
+var data5 = hash5.update(q5, 'utf-8');
+var q5hash = data5.digest('hex'); 
+
+
+let sql = 'insert into clue (clue1, clue2, clue3, clue4, clue5, cName, cPrize, q1Text, q2Text, q3Text, q4Text, q5Text, cDescription , status, cLikes ) values ("'+ q1hash+'", "'+ q2hash+'", "'+ q3hash+'", "'+ q4hash+'", "'+ q5hash+'", "'+ req.body.clueName+'", "'+ req.body.cluePrize+'", "'+ req.body.question1+'", "'+ req.body.question2+'", "'+ req.body.question3+'", "'+ req.body.question4+'", "'+ req.body.question5+'", "'+ req.body.description+'", "inTest", 0)'
+let query = db.query(sql,function (error, results, next) {
+  if (error) throw error;
+  
+ // console.log(results)
+  res.redirect("/activecompetitions")
+});
+
+
+
+
+});
+
+
+
+router.get('/edit/:content', isLoggedIn, isAdmin, function(req, res, next) {
+    
+    let sql = 'SELECT * FROM sitedata where siteArea = "'+req.params.content+'"' 
+    let query = db.query(sql, (err,result) => {
+       if(err) throw err;
+       res.render('editcontent', {
+        user : req.user,result // get the user out of session and pass to template
+    });
+       
+        
+    });
+
+
+   
+});
+
+
+router.post('/edit/:content', isLoggedIn, isAdmin, function(req, res, next) {
+    
+    let sql = 'update sitedata set dateDescription = "'+req.body.newContent+'", dataImage = "'+req.body.newImage+'" where siteArea = "'+req.params.content+'"' 
+    let query = db.query(sql, (err,result) => {
+       if(err) throw err;
+       res.render('adminsitedetails', {
+        user : req.user,result // get the user out of session and pass to template
+    });
+       
+        
+    });
+
+
+   
+});
    
 
 module.exports = router;

@@ -1,0 +1,72 @@
+
+<%- include('header') -%>
+
+
+
+<div class="w3-container w3-white w3-margin w3-padding-large">
+    <div class="w3-center">
+
+      
+      <div class="w3-col 6">
+        
+        <h3>Concent & D.O.B. Needed</h3>
+        <p>You are on this page as we need a few details from you before you can enter any of our competitions.
+          <br>
+        We need to make sure you are older than 18years and that you have read and agree to our terms and conditions. 
+        <br>
+        In particular it is identified that no prize will be paid out (given to) any person who can not produce identification detailing that they are over 18 at time the compeition was entered.
+        <br>
+        However, all we need at this stage is two things. Your Date of Birth (DOB) and your consent that you have read and agreed to our terms and conditions. These can be found here: <a href="/terms">Terms & Conditions</a>
+        
+        </p>
+      
+      
+      </div>
+      
+      
+      
+    </div>
+    
+
+      <!-- Image header -->
+
+
+    <div class="w3-justify">
+
+      <div class="w3-col l2 m6 w3-margin-bottom"><img src="../../consent.png" alt="Girl Hat" style="width:100%" class="w3-padding-16"></div>
+      <div class="w3-col l10 m6 w3-margin-bottom">
+        
+        <div class="w3-white w3-margin">
+          <div class="w3-container w3-padding w3-black">
+            <h4>Please complete this form</h4>
+          </div>
+          <div class="w3-container w3-white">
+            <p>Enter your date of birth below pay particular attention to the date format.</p>
+            <p>
+              <form accept-charset="UTF-8" action="/consentanddob" method="post">  
+              <input class="w3-input w3-border" name="theirday" type="text" placeholder="dd" style="width:10%; display:inline-block;" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])" title="must be two numbers e.g. 28" required> 
+              <input class="w3-input w3-border" name="theirmonth" type="text" placeholder="mm" style="width:10%;display:inline-block;" pattern="(0[1-9]|1[012])" title="must be two numbers e.g. 04" required>
+              <input class="w3-input w3-border" name="theiryear" type="text" placeholder="yyyy" style="width:10%;display:inline-block; " pattern="[0-9]{4}" title="must be four numbers e.g. 1998" required>
+            
+            </p>
+            <p><input id="milk" class="w3-check" name="checkedConsent" type="checkbox" >
+              <label>I have read and agree to the terms and conditions <a href="/terms">Terms & Conditions</a></label></p>
+            <p><button class="w3-button w3-block w3-red">Submit Consent</button></p>
+            </form>
+          </div>
+        </div>
+      
+      </div>
+      
+      
+      
+   
+
+    </div>
+
+  </div>
+<hr>
+
+
+<%- include('footer') -%>
+  

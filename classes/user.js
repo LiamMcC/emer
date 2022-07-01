@@ -8,12 +8,17 @@ module.exports = class User {
    
 
             static newPersonDefaults(theWho, theMail){
-
+              const today = new Date();
+              const year = today.getFullYear();
                 var datetime = new Date();
+
                 console.log(datetime);
                            // 'select * FROM clue where status = "active" and clueID = '+req.params.id+''
                 let sql = 'INSERT INTO userSubs (userName, email, subValue) values ("'+theWho+'", "'+theMail+'", 0)';
                 let xxx = db.query(sql);
+
+                let sql2 = 'INSERT INTO userConcent (username, agreed, DOBday, DOBmonth, DOByear) values ("'+theWho+'", false, 1,1, "'+year+'")';
+                let xxx2 = db.query(sql2);
                    
                 }
 

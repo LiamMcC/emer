@@ -17,33 +17,31 @@
         </div>
 
         <div class="w3-justify">
-<h3>Previous Payments</h3>
-            <% result.forEach(function(contact) { %>
+
+
+<form action="paysubscription" method="get">
+  <script
+      src="//checkout.stripe.com/v2/checkout.js"
+      class="stripe-button"
+      data-key="<%= key %>"
+      data-amount="3000"
+      data-currency="eur"
+      data-name="Win.ie "
+      data-description="1 Year Membership for Win.ie"
+      data-locale="auto" >
+      </script>
+  </form>
+  <p>The total deduction here will be €30 for one year subscription to our competitions club. As a member of the club you can play any competition at no extra cost.</p>
+          <img src="./stripedata.png" alt="Girl Hat" style="width:30%" class="w3-padding-16">
+          
+          <h3>Previous Payments</h3>
+          <% result.forEach(function(contact) { %>
 <p>€<%= contact.subValue %> <%= contact.datePaid %> </p>
 
 <% }); %>
-          <img src="/w3images/girl_hat.jpg" alt="Girl Hat" style="width:100%" class="w3-padding-16">
-          <p><strong>Stats!</strong> Just Some Info For You</p>
-          <p>
-		
-      <a href="/paysubscription" class="w3-button w3-green"><i class="fa fa-th"> </i>Pay Subscription</a>
-		
-		</p>
-          <p class="w3-right"><button class="w3-button w3-black" onclick="myFunction('demo1')" id="myBtn"><b>Replies  </b> <span class="w3-tag w3-white">1</span></button></p>
+          
           <p class="w3-clear"></p>
-          <div class="w3-row w3-margin-bottom" id="demo1" style="display:none">
-            <hr>
-     <!-- latet Competition -->
-	 <div class="w3-white w3-margin">
-        <div class="w3-container w3-padding w3-green">
-          <h4>Latest Competion You Are In</h4>
-          
-        </div>
-  
-          
-         
-        </div>
-      </div>
+ 
           </div>
         </div>
       </div>

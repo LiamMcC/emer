@@ -124,15 +124,138 @@ router.use(session({
 
 
       router.get('/paymentdetails',isLoggedIn,  function(req, res, next){  // I have this restricted for admin just for proof of concept
-       // let sql = 'select * FROM clue where status = "active"; ' 
-        let sql = 'select * from userSubs where userName = "'+req.user.userName+'";' 
+       
+        
+    
+        let sql = 'SELECT * FROM userConcent where userName = "'+req.user.userName+'"' 
         let query = db.query(sql, (err,result) => {
            if(err) throw err;
-           res.render('paymentdetails', {user : req.user, result})
+
+           const mins = 1000 * 60;
+           const hrs = mins * 60;
+           const days = hrs * 24;
+           const years = days * 365;
+
+           var day = result[0].DOBday
+           var month = result[0].DOBmonth
+           var year = result[0].DOByear
+           var fulldob = year + "-" + month + "-" + day 
+           var today = new Date()
+           var xxx = new Date (fulldob)
+           var diffdate = today - xxx
+
+           var dfghj = today - xxx
+let isItSo = Math.round(dfghj / years);
+          
+           console.log("********************** " + isItSo)
+            if (result[0].agreed && isItSo >= 18) {
+                let sql = 'select * from userSubs where userName = "'+req.user.userName+'" ORDER BY Id DESC;' 
+                let query = db.query(sql, (err,result) => {
+                   if(err) throw err;
+                   key = "pk_test_51LGfbwDr1wDNKAxevr4DB4WCNOItXjPbJgjrS4MZxuwCqxiAntBh4V97vjWfUqq3SN6gFzrVdllwZ3mzDRzImXYl00YBLoxZ6i"
+                   res.render('paymentdetails', {user : req.user, result, key})
+                    
+                });
+            
+            } 
+            
+            else if(result[0].agreed && isItSo <= 18){
+
+                let sql = 'select * from userConcent where userName = "'+req.user.userName+'";' 
+                let query = db.query(sql, (err,result) => {
+                   if(err) throw err;
+                   
+                   res.render('youaretooyoung', {user : req.user, result})
+                   
+                    
+                });
+                console.log("They agreed but are too young" )
+            
+            }
+
+            else if(!result[0].agreed && isItSo >= 18){
+
+                let sql = 'select * from userConcent where userName = "'+req.user.userName+'";' 
+                let query = db.query(sql, (err,result) => {
+                   if(err) throw err;
+                   
+                   res.render('youmustagree', {user : req.user, result})
+                   console.log(result)
+                    
+                });
+                console.log("They agreed but are too young" )
+            
+            }
+        
+            else {
+                res.render('concentneeded', {user : req.user})
+                console.log("they need to provide date of birth and agree")
+            }
+           
             
         });
     
+    
+
+
+     
+    
        });
+
+
+       router.post('/consentgiven',isLoggedIn,  function(req, res, next){  // I have this restricted for admin just for proof of concept
+        //let sql = 'select * FROM clue where status = "active"; '
+        let checkedValue = req.body['checkedConsent']
+        if (checkedValue == "on"){
+            let sql = 'update userConcent set agreed = true, dateAgreed = "'+today+'" where userName = "'+req.user.userName+'";' 
+            let query = db.query(sql, (err,result) => {
+               if(err) throw err;
+                res.redirect('/profile')
+                
+            });
+            
+        
+        } else {
+
+            res.redirect('/profile')
+        }
+        
+  
+    
+       });
+
+
+       router.post('/consentanddob',isLoggedIn,  function(req, res, next){  // I have this restricted for admin just for proof of concept
+        //let sql = 'select * FROM clue where status = "active"; '
+        const today = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        
+        let checkedValue = req.body['checkedConsent']
+        if (checkedValue == "on"){
+            let sql = 'update userConcent set agreed = true, DOBday = "'+req.body.theirday+'", DOBmonth = "'+req.body.theirmonth+'", DOByear = "'+req.body.theiryear+'", dateAgreed = "STR_TO_DATE('+today+')" where userName = "'+req.user.userName+'";' 
+            let query = db.query(sql, (err,result) => {
+               if(err) throw err;
+                res.redirect('/profile')
+                
+            });
+            
+        
+        } else {
+            const today = new Date().toISOString().slice(0, 19).replace('T', ' ');
+           // const today = new Date();
+            let sql = 'update userConcent set DOBday = "'+req.body.theirday+'", DOBmonth = "'+req.body.theirmonth+'", DOByear = "'+req.body.theiryear+'", dateAgreed = "'+today+'" where userName = "'+req.user.userName+'" ;' 
+            let query = db.query(sql, (err,result) => {
+               if(err) throw err;
+                res.redirect('/profile')
+                
+            });
+        }
+        
+  
+    
+       });
+
+       
+
 
       router.get('/paysubscription',isLoggedIn,  function(req, res, next){  // I have this restricted for admin just for proof of concept
         //let sql = 'select * FROM clue where status = "active"; ' 

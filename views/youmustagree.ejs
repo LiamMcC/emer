@@ -1,0 +1,69 @@
+
+<%- include('header') -%>
+
+
+
+<div class="w3-container w3-white w3-margin w3-padding-large">
+        <div class="w3-center">
+    
+          
+          <div class="w3-col 6">
+            
+            <h3>Concent Needed</h3>
+            <img src="../../consent.png" alt="Girl Hat" style="width:30%" class="w3-padding-16">
+            <p>You are on this page as we know you are over 18 you told us your Date of Birth (D.O.B.) <%= result[0].DOBday %>/<%= result[0].DOBmonth %>/<%= result[0].DOByear %> (DD/MM/YYYY) but you also need to agree to the terms & conditions.
+              <br>
+            We need to make sure that you have read and agree to our terms and conditions. 
+            <br>
+            In particular it is identified that no prize will be paid out (given to) any person who can not produce identification detailing that they are over 18 at time the compeition was entered.
+            <br>
+            However, as we already have your Date of Birth (DOB) we now need your consent that you have read and agreed to our terms and conditions. These can be found here: <a href="/terms">Terms & Conditions</a>
+            
+            </p>
+          
+          
+          </div>
+          
+          
+          
+        </div>
+        
+    
+          <!-- Image header -->
+    
+    
+        <div class="w3-justify">
+    
+          <div class="w3-col l2 m6 w3-margin-bottom"><img src="../../consent.png" alt="Girl Hat" style="width:100%" class="w3-padding-16"></div>
+          <div class="w3-col l10 m6 w3-margin-bottom">
+            
+            <div class="w3-white w3-margin">
+              <div class="w3-container w3-padding w3-black">
+                <h4>Please complete this form</h4>
+              </div>
+              <div class="w3-container w3-white">
+                
+                <form accept-charset="UTF-8" action="/consentgiven" method="post"> 
+                <p><input class="w3-check" name="checkedConsent" type="checkbox" >
+                  <label>I have read and agree to the terms and conditions <a href="/terms">Terms & Conditions</a></label></p>
+                <p><button class="w3-button w3-block w3-red">Submit Consent</button></p>
+                </form>
+              </div>
+            </div>
+          
+          </div>
+          
+          
+          
+       
+    
+        </div>
+    
+      </div>
+    <hr>
+
+
+
+
+<%- include('footer') -%>
+  

@@ -1,0 +1,58 @@
+<%- include('header') -%>
+
+
+
+
+
+
+
+<div class="w3-container w3-white w3-margin w3-padding-large">
+    <div class="w3-center">
+
+      <% result.forEach(function(contact) { %>
+      <div class="w3-col 6"><h3><%= result[0].dataTitle %></h3></div>
+      
+      
+      
+    </div>
+    
+
+      <!-- Image header -->
+
+
+    <div class="w3-justify">
+      <img src="../../<%= result[0].dataImage %>" alt="Girl Hat" style="width:50%" class="w3-padding-16">
+      
+      
+      <div class="w3-justify">
+      <pp>
+        <%- result[0].dateDescription %>
+      </p>
+
+
+
+      <% if (result[0].siteArea  == "contact" ) { %>
+        <div class="w3-white w3-margin">
+            <div class="w3-container w3-padding w3-black">
+              <h4>What Can We Help You With?</h4>
+            </div>
+            <div class="w3-container w3-white">
+              <p>Enter your e-mail below and get notified on the latest blog posts.</p>
+              <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
+              <p><input class="w3-input w3-border" type="text" placeholder="Enter a comment" style="width:100%"></p>
+              <p><button type="button" onclick="document.getElementById('subscribe').style.display='block'" class="w3-button w3-block w3-red">Subscribe</button></p>
+            </div>
+          </div>
+        <%} else { %>
+  
+          <% } %>  
+
+    </div>
+
+    </div>
+
+    <% }) %>
+  </div>
+<hr>
+
+<%- include('footer') -%>
