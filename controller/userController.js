@@ -21,6 +21,7 @@ var bcrypt = require('bcrypt-nodejs');
 router.use(cookieParser()); // read cookies (needed for auth)
 
 var aUser = require("../classes/user.js");
+const { append } = require('express/lib/response');
 
 // required for passport
 router.use(session({
@@ -393,7 +394,23 @@ function isAdmin(req, res, next) {
 //};
 
 
+router.post('/testauto', function(req, res) {
 
+    // let sql = 'select winners.*, clue.cName from winners JOIN clue ON winners.comp=clue.clueId order by Id DESC ;select * from clue where status = "active" ORDER BY RAND() LIMIT 2;select * from clue where status = "active" ORDER BY clueID DESC LIMIT 3;' 
+    // let query = db.query(sql, (err,result) => {
+    //    if(err) throw err;
+    //    var title ="Hi Liam"
+    //    res.render('index', {
+    //     user : req.user,result, title // get the user out of session and pass to template
+    // });
+       
+        
+    // });
+
+    
+    console.log("Ajax Works")
+
+});
 
 
 

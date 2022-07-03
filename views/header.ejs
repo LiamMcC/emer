@@ -9,6 +9,29 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+<script>
+
+$(document).ready(function(){
+  $("#ajaxdude").click(function(){
+$.ajax({
+
+  url: "/testauto",
+  method: "post"
+})
+
+    $("#cookieBar").hide();
+  });
+
+})
+
+
+</script>
+
 <style>
   body {font-family: "Times New Roman", Georgia, Serif;}
 h1, h2, h3, h4, h5, h6 {
@@ -20,6 +43,20 @@ body {font-family: "Open Sans"}
 
 
 .w3-sidebar{height:100%;width:200px;background-color:#fff;position:fixed!important;top:0;z-index:1;overflow:auto}
+
+
+.cookieAgree {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: red;
+   color: white;
+   text-align: center;
+   opacity: .8;
+}
+
+
 </style>
 </head>
 <body class="w3-light-grey">

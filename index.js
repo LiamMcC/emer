@@ -10,6 +10,9 @@ app.use(express.static("images")); // Allow access to images
 //Routes
 app.use(require('./routes'));  
 
+
+
+
 var db = require('./db');
 var crypto = require('crypto');
 var Clues = require("./classes/clues.js");
