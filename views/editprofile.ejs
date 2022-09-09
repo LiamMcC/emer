@@ -1,0 +1,75 @@
+
+<%- include('header') -%>
+<!-- Promo Section - "We know design" -->
+
+
+  <!-- ********************************************************************-->
+  <div class="w3-row w3-padding w3-border">
+
+    <!-- Blog entries -->
+    <div class="w3-container w3-light-grey w3-center" style="padding:8px 16px">
+    
+      <!-- Blog entry -->
+      <div class="w3-container w3-white w3-margin w3-padding-large">
+        <div class="w3-center">
+          <h3><%= user.userName %>'s Profile</h3>
+          <h5><%= user.email %> </h5>
+          <p>For Security Reasons Any Change Made To Your Profile Will Log You Out Requiring A Sign In Again.</p>
+        </div>
+
+     
+        <div class="w3-center">
+          
+            <form action="/changeemail" method="post">
+       
+                <input type="email"  placeholder="New Email" name="newemail" class="w3-input w3-border" required pattern=".{8,}">
+                <br>
+                <button type="submit" class="w3-button w3-green">
+                      Change Password
+                 </button>
+                 
+            </form>
+
+        <p></p>
+        </div>
+
+
+        <div class="w3-center">
+          
+            <form action="/changepassword" method="post">
+       
+                <input type="password"  placeholder="New Password - Something you wont forget" name="newpassword" class="w3-input w3-border" required pattern=".{8,}">
+                <br>
+                <button type="submit" class="w3-button w3-green">
+                      Change Password
+                 </button>
+                 
+            </form>
+
+        <p></p>
+        </div>
+
+   
+    
+      </div>
+      <hr>
+
+
+
+      
+    <!-- END BLOG ENTRIES -->
+    </div>
+
+
+
+  <div class="w3-container w3-light-grey w3-center" style="padding:8px 16px">
+
+	<p><a href="#work" class="w3-button w3-red"><i class="fa fa-th"> </i> Delete Account</a></p>
+	
+	  </div>
+</div>
+
+
+  <%- include('footer') -%>
+
+

@@ -1,18 +1,19 @@
 'use strict';
-
+require('dotenv').config();
 
 const res = require('express/lib/response');
 var db = require('../db');
 var nodemailer = require('nodemailer');
 
+
 var transporter = nodemailer.createTransport({
 
-    host: "smtp.reg365.net",
+    host: process.env.EMAIL_HOST,
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: "me@liammccabe.ie", // your domain email address
-      pass: "CodL1ver0il" // your password
+      user: process.env.EMAIL_USER, // your domain email address
+      pass: process.env.EMAIL_PASS // your password
     },
     tls:{
       rejectUnauthorized: false
@@ -41,7 +42,7 @@ module.exports = class Email {
             to: 'me@liammccabe.ie',
             subject: row.email,
             text: 'Can I just check that the email was sent! ' + row.email ,
-            html: "<div style='width:100%;background:#a7c7d1'>Welcome to Win.ie</div>"
+            html: "<div style='width:100%;background:#a7c7d1'>Welcome to Win.ie.....</div>"
           };
           
           
@@ -50,10 +51,11 @@ module.exports = class Email {
               console.log(error);
             } else {
               console.log('Email sent: ' + info.response);
+              
             }
           });
 
-
+          
 
        })
        
@@ -69,17 +71,13 @@ module.exports = class Email {
 
 
 
-   static louise() {
+   static louise(email, comment, verifyBox) {
 
-
-
-    
-    
     var mailOptions = {
-      from: 'me@liammccabe.ie',
+      from: email,
       to: 'me@liammccabe.ie',
-      subject: 'Louise Method',
-      text: 'Can I just check that the email was sent!'
+      subject: 'Website Contact',
+      text: comment + " the verify answer was " + verifyBox
     };
     
     
@@ -91,8 +89,41 @@ module.exports = class Email {
       }
     });
     
-
+ 
    }  
+
+
+
+
+   static rmaiReset(xxemail, newRandomPword) {
+
+   
+    
+    var mailOptions = {
+      from: 'me@liammccabe.ie',
+      to: 'me@liammccabe.ie',
+      subject: 'Website Contact',
+      text:  " Your temporary password is " + newRandomPword
+    };
+    
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
+
+
+    
+ 
+   }  
+
+
+
+
 
   
 }

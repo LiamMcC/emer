@@ -17,7 +17,19 @@ var db = require('./db');
 var crypto = require('crypto');
 var Clues = require("./classes/clues.js");
  
-
+//catch all endpoint will be Error Page
+app.get("*", function(req,res){
+  var stuffLiam = req.cookies.theyLikeCookies
+  res.render('oops', {stuffLiam});
+});
+    
+      // custom error handling if it is 404 render 404 page
+app.use((req, res, next) => {
+  const err = new Error(res.render('oops'))
+  err.status = 404
+  //res.render('oops');
+  next(err) 
+});
 
 app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
     console.log("Time to start winning");

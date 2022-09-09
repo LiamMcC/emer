@@ -41,17 +41,19 @@
             <h4>Please complete this form</h4>
           </div>
           <div class="w3-container w3-white">
-            <p>Enter your date of birth below pay particular attention to the date format.</p>
+            <p>We need to know you are over 18 and that you agree to our terms and conditions.</p>
             <p>
               <form accept-charset="UTF-8" action="/consentanddob" method="post">  
-              <input class="w3-input w3-border" name="theirday" type="text" placeholder="dd" style="width:10%; display:inline-block;" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])" title="must be two numbers e.g. 28" required> 
-              <input class="w3-input w3-border" name="theirmonth" type="text" placeholder="mm" style="width:10%;display:inline-block;" pattern="(0[1-9]|1[012])" title="must be two numbers e.g. 04" required>
-              <input class="w3-input w3-border" name="theiryear" type="text" placeholder="yyyy" style="width:10%;display:inline-block; " pattern="[0-9]{4}" title="must be four numbers e.g. 1998" required>
+            
             
             </p>
-            <p><input id="milk" class="w3-check" name="checkedConsent" type="checkbox" >
-              <label>I have read and agree to the terms and conditions <a href="/terms">Terms & Conditions</a></label></p>
-            <p><button class="w3-button w3-block w3-red">Submit Consent</button></p>
+            <p><input class="w3-check" name="checkedConsent" type="checkbox" >
+              <label>I have read and agree to the <a href="/terms">Terms & Conditions</a></label></p>
+            
+              <p><input class="w3-check" name="checkedTheAge" type="checkbox" >
+                <label>I am over the age of 18 in accordance with site <a href="/terms">Terms & Conditions</a></label></p>
+            
+              <p><button class="w3-button w3-block w3-red">Submit Consent</button></p>
             </form>
           </div>
         </div>

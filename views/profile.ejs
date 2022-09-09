@@ -14,56 +14,65 @@
         <div class="w3-center">
           <h3><%= user.userName %>'s Profile</h3>
           <h5><%= user.email %> </h5>
+          <p> Watch out for progress bars around our site. The green represents your competition progress and the red is the current leaders progress. They will look like this:</p>
+          <div class="w3-red" style="height:10px;width:80%"></div>
+             
+          <div class="w3-green" style="height:10px;width:35%"></div>
+          <br>
+          <br>
+          <br>
         </div>
 
-        <div class="w3-justify">
-          <img src="/w3images/girl_hat.jpg" alt="Girl Hat" style="width:100%" class="w3-padding-16">
-          <p><strong>Stats!</strong> Just Some Info For You</p>
-          <p>
-			<a href="/logout" class="w3-button w3-black"><i class="fa fa-th"> </i> Log Out</a>
-		  <a href="/editprofile" class="w3-button w3-blue"><i class="fa fa-th"> </i> Edit Your Profile</a>
-      <a href="/paymentdetails" class="w3-button w3-green"><i class="fa fa-th"> </i> View / Pay Subscription</a>
-		
-		</p>
-          <p class="w3-right"><button class="w3-button w3-black" onclick="myFunction('demo1')" id="myBtn"><b>Replies  </b> <span class="w3-tag w3-white">1</span></button></p>
-          <p class="w3-clear"></p>
-          <div class="w3-row w3-margin-bottom" id="demo1" style="display:none">
-            <hr>
-     <!-- latet Competition -->
-	 <div class="w3-white w3-margin">
-        <div class="w3-container w3-padding w3-green">
-          <h4>Latest Competion You Are In</h4>
-          
+     
+
+        <div class="w3-center">
+          <a href="/paymentdetails" class="w3-button w3-green"><i class="fa fa-th"> </i> View / Pay Subscription</a>
+        <p>Payments are handled securely using Stripe. When you are paying your subscription this will be done through the stripe payment gateway. We do not collect any financial data from you at any stage. All financial transactions are handled by stripe. Upon sucessfull payment your profile will be updated to confirm this and your membership will become active for a period of 12 months.</p>
         </div>
-        <div class="w3-container w3-white">
-			<% result[2].forEach(function(contact) { %>
-				<p>You are currently on Clue <%= contact.currentProgress %> of our <%= contact.cName %> competition</p>
-                <% if( contact.currentProgress == 1){ %>
-					<h1><%= result[0].q1Text %></h1>
-					<% } else if( contact.currentProgress == 1){ %>  
-						<h1><%= result[0].q2Text %></h1>
-						<% } else if( contact.currentProgress == 1){ %>  
-							<h1><%= result[0].q3Text %></h1>
-							<% } else if( contact.currentProgress == 1){ %>  
-								<h1><%= result[0].q4Text %></h1>
-								<% } else if( contact.currentProgress == 1){ %>  
-									<h1><%= result[0].q5Text %></h1>
-									
-				<% } %>
+
+        <div class="w3-center">
+          <a href="/logout" class="w3-button w3-black"><i class="fa fa-th"> </i> Log Out</a>
+          <p></p>
+        </div>
+
+        <div class="w3-center">
+          <a href="/editprofile" class="w3-button w3-blue"><i class="fa fa-th"> </i> Edit Your Profile</a>
+          <br>
+        </div>
 
 
-				<p>Current Clue: <%= contact.q1Text %></p>
-				<p>				
-				<a href="check/<%= contact.clueID %>/<%= contact.currentProgress %>"><button class="w3-button w3-green" ><b>Play Now </b> </button></a>
-			</p>	
-			 
-			  <% }); %>
-          
+        <div class="w3-center">
+          <h4>Last Competition You Played</h4>
          
+        
+            <% result[2].forEach(function(contact) { %>
+              <p>You are currently on <b>Clue <%= contact.currentProgress %></b> of our <b><%= contact.cName %></b> competition</p>
+                      <% if( contact.currentProgress == 1){ %>
+                <h1><%= result[0].q1Text %></h1>
+                <% } else if( contact.currentProgress == 1){ %>  
+                  <h1><%= result[0].q2Text %></h1>
+                  <% } else if( contact.currentProgress == 1){ %>  
+                    <h1><%= result[0].q3Text %></h1>
+                    <% } else if( contact.currentProgress == 1){ %>  
+                      <h1><%= result[0].q4Text %></h1>
+                      <% } else if( contact.currentProgress == 1){ %>  
+                        <h1><%= result[0].q5Text %></h1>
+                        
+              <% } %>
+      
+      
+              <p>Current Clue: <%= contact.q1Text %></p>
+              <p>				
+              <a href="check/<%= contact.clueID %>/<%= contact.currentProgress %>"><button class="w3-button w3-green" ><b>Play Now </b> </button></a>
+            </p>	
+             
+              <% }); %>
+
+
+      
         </div>
-      </div>
-          </div>
-        </div>
+
+    
       </div>
       <hr>
 
@@ -78,7 +87,7 @@
       <!-- About Card -->
       <div class="w3-white w3-margin">
         
-        <div class="w3-container w3-blue">
+        <div class="w3-container w3-black">
           <h4>Our Latest Competition</h4>
 
 		</div>
@@ -101,7 +110,7 @@
 
       <!-- Posts -->
       <div class="w3-white w3-margin">
-        <div class="w3-container w3-padding w3-red">
+        <div class="w3-container w3-padding w3-black">
           <h4>Latest Winners</h4>
         </div>
 
@@ -135,7 +144,7 @@
   <!-- END GRID -->
   </div>
 
-  <div class="w3-container w3-light-grey" style="padding:8px 16px">
+  <div class="w3-container w3-light-grey w3-center" style="padding:8px 16px">
 
 	<p><a href="#work" class="w3-button w3-red"><i class="fa fa-th"> </i> Delete Account</a></p>
 	

@@ -38,9 +38,15 @@
             </div>
             <div class="w3-container w3-white">
               <p>Enter your e-mail below and get notified on the latest blog posts.</p>
-              <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
-              <p><input class="w3-input w3-border" type="text" placeholder="Enter a comment" style="width:100%"></p>
-              <p><button type="button" onclick="document.getElementById('subscribe').style.display='block'" class="w3-button w3-block w3-red">Subscribe</button></p>
+
+              <form action="/contact" method="post">
+              <p><input class="w3-input w3-border" type="text" name="email" placeholder="Enter e-mail" style="width:100%"></p>
+              <p><input class="w3-input w3-border" type="text" name="comment" placeholder="Enter a comment" style="width:100%"></p>
+              <p><input class="w3-input w3-border" type="text" name="verifyBox" placeholder="What is the capital of Ireland" style="width:100%"></p>
+              
+              <p><button type="submit" class="w3-button w3-black">Contact</button></p>
+              </form>
+            
             </div>
           </div>
         <%} else { %>

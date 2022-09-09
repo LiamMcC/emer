@@ -1,7 +1,8 @@
 <%- include('header') -%>
 
 <div class="row">
-    <div class="container">
+    
+<div class="w3-container w3-light-grey" style="padding:18px 16px" id="contact">
     
     <div class="item">
     
@@ -16,25 +17,25 @@
         <form action="/signup" method="post">
             <div class="form-group">
                 <label>Username</label>
-                <input type="text" class="form-control" name="username">
+                <input type="text"  name="username" class="w3-input w3-border" type="text" placeholder="Username" >
             </div>
                     <div class="form-group">
-                <label>Emaile</label>
-                <input type="text" class="form-control" name="email">
+                <label>Email</label>
+                <input type="email" class="w3-input w3-border" name="email" required>
             </div>
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" name="password">
+                <label>Password (Min 8 Charachters)</label>
+                <input type="password" class="w3-input w3-border" name="password" pattern=".{8,}">
             </div>
-    
-            <button type="submit" class="button">Signup</button>
+    <br>
+            <button type="submit" class="w3-button w3-black">Signup</button>
         </form>
     
         <hr>
-    
-        <p>Already have an account? <br><a href="/login" class="button">Login</a></p>
-        <p>Or go <br><a href="/" class="button">home</a>.</p>
-    
+    <div class="w3-center">
+        <p>Already have an account? <br><a href="/login" class="w3-button w3-black">Login</a></p>
+        <p>Or go <br><a href="/" class="w3-button w3-black">home</a>.</p>
+    </div>
     </div>
     
     </div>

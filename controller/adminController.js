@@ -32,8 +32,17 @@ function isAdmin(req, res, next) {
 
 router.get('/adminarea', isLoggedIn, isAdmin, function(req, res, next) {
    
+// update all cookies that are older than 90 days when this url is called
+    // let sql = 'update users set cookies older than 90 days to false' 
+    // let query = db.query(sql, (err,result) => {
+    //    if(err) throw err;
+    //    res.render('adminallusers', {
+    //     user : req.user,result // get the user out of session and pass to template
+    // });
+    var stuffLiam = req.cookies.theyLikeCookies
+
     res.render('adminarea',{
-        user : req.user // get the user out of session and pass to template
+        user : req.user, stuffLiam // get the user out of session and pass to template
     })
 });
 
@@ -43,9 +52,10 @@ router.get('/adminallusers', isLoggedIn, isAdmin, function(req, res, next) {
     
     let sql = 'SELECT * FROM users left JOIN userSubs ON users.userName=userSubs.userName group by users.userName;' 
     let query = db.query(sql, (err,result) => {
+        var stuffLiam = req.cookies.theyLikeCookies
        if(err) throw err;
        res.render('adminallusers', {
-        user : req.user,result // get the user out of session and pass to template
+        user : req.user,result, stuffLiam // get the user out of session and pass to template
     });
        
         
@@ -66,8 +76,8 @@ router.get('/adminsitedetails', isLoggedIn, isAdmin, function(req, res, next) {
        
         
     // });
-    
-    res.render('adminsitedetails')
+    var stuffLiam = req.cookies.theyLikeCookies
+    res.render('adminsitedetails', {stuffLiam})
 
 });
 
@@ -80,8 +90,9 @@ router.get('/adminallwinners', isLoggedIn, isAdmin, function(req, res, next) {
     let sql = 'select winners.*, clue.cName from winners JOIN clue ON winners.comp=clue.clueId order by Id DESC ;' 
     let query = db.query(sql, (err,result) => {
        if(err) throw err;
+       var stuffLiam = req.cookies.theyLikeCookies
        res.render('adminallwinners', {
-        user : req.user,result // get the user out of session and pass to template
+        user : req.user,result, stuffLiam // get the user out of session and pass to template
     });
        
         
@@ -96,9 +107,10 @@ router.get('/admincurrentcomps', isLoggedIn, isAdmin, function(req, res, next) {
     
     let sql = 'select * from clue where status ="active" order by clueID DESC;' 
     let query = db.query(sql, (err,result) => {
+        var stuffLiam = req.cookies.theyLikeCookies
        if(err) throw err;
        res.render('admincurrentcomps', {
-        user : req.user,result // get the user out of session and pass to template
+        user : req.user,result, stuffLiam // get the user out of session and pass to template
     });
        
         
@@ -113,8 +125,9 @@ router.get('/adminpastcomps', isLoggedIn, isAdmin, function(req, res, next) {
     let sql = 'SELECT * FROM clue left JOIN winners ON clue.clueID=winners.comp where status = "solved" order by clueID DESC' 
     let query = db.query(sql, (err,result) => {
        if(err) throw err;
+       var stuffLiam = req.cookies.theyLikeCookies
        res.render('adminpastcomps', {
-        user : req.user,result // get the user out of session and pass to template
+        user : req.user,result, stuffLiam // get the user out of session and pass to template
     });
        
         
@@ -129,12 +142,12 @@ router.get('/adminpastcomps', isLoggedIn, isAdmin, function(req, res, next) {
 
 router.post('/intestclue/:id/:clue',  function(req, res, next){  
     var whichClue = req.params.clue
-    console.log("Which clue is " + whichClue)
+   
     var de = req.body.firstClue
    var rew = req.params.id
 var thedude = req.user.userName
 
-
+var stuffLiam = req.cookies.theyLikeCookies
 
     var theStatement = 'select  '+req.params.clue+'  from clue where clueID = '+req.params.id+''
     let sql = theStatement
@@ -147,14 +160,14 @@ var thedude = req.user.userName
             var hash = crypto.createHash('sha256');
             var data = hash.update(de, 'utf-8');
             var generatedHash = data.digest('hex');
-            console.log("The user entered " + de + " the answer is " + generatedHash + " on clue "  )
+         
    if (rows[0].clue1 == generatedHash) {
        res.redirect("/intestclue/"+rew+"/clue2")
        Clues.updateMax(2, rew)
        
        }
    else {
-       res.render("wrongClue")
+       res.render("wrongClue", {stuffLiam})
         }
    
   });
@@ -167,14 +180,14 @@ var thedude = req.user.userName
         var hash = crypto.createHash('sha256');
         var data = hash.update(de, 'utf-8');
         var generatedHash = data.digest('hex');
-        console.log("The user entered " + de + " the answer is " + generatedHash + " on clue "  )
+      
 if (rows[0].clue2 == generatedHash) {
     res.redirect("/intestclue/"+rew+"/clue3")
    Clues.updateMax(3, rew)
    
    }
 else {
-   res.render("wrongClue")
+   res.render("wrongClue", {stuffLiam})
     }
 
 });
@@ -188,14 +201,14 @@ else {
         var hash = crypto.createHash('sha256');
         var data = hash.update(de, 'utf-8');
         var generatedHash = data.digest('hex');
-        console.log("The user entered " + de + " the answer is " + generatedHash + " on clue "  )
+       
 if (rows[0].clue3 == generatedHash) {
     res.redirect("/intestclue/"+rew+"/clue4")
    Clues.updateMax(4, rew)
    
    }
 else {
-   res.render("wrongClue")
+   res.render("wrongClue", {stuffLiam})
     }
 
 });
@@ -207,14 +220,14 @@ else {
         var hash = crypto.createHash('sha256');
         var data = hash.update(de, 'utf-8');
         var generatedHash = data.digest('hex');
-        console.log("The user entered " + de + " the answer is " + generatedHash + " on clue "  )
+     
 if (rows[0].clue4 == generatedHash) {
     res.redirect("/intestclue/"+rew+"/clue5")
    Clues.updateMax(5, rew)
    
    }
 else {
-   res.render("wrongClue")
+   res.render("wrongClue", {stuffLiam})
     }
 
 }); 
@@ -236,7 +249,7 @@ if (rows[0].clue5 == generatedHash) {
    
    }
 else {
-   res.render("wrongClue")
+   res.render("wrongClue", {stuffLiam})
     }
 
 });
@@ -255,9 +268,9 @@ else {
 
    router.get('/addone', isLoggedIn, isAdmin,function(req, res, next) {
 	
-    
+    var stuffLiam = req.cookies.theyLikeCookies
 
-    res.render("addclue")
+    res.render("addclue", {stuffLiam})
 });
 
 router.post('/addone', isLoggedIn, isAdmin, function(req, res, next){
@@ -307,9 +320,10 @@ router.get('/edit/:content', isLoggedIn, isAdmin, function(req, res, next) {
     
     let sql = 'SELECT * FROM sitedata where siteArea = "'+req.params.content+'"' 
     let query = db.query(sql, (err,result) => {
+        var stuffLiam = req.cookies.theyLikeCookies
        if(err) throw err;
        res.render('editcontent', {
-        user : req.user,result // get the user out of session and pass to template
+        user : req.user,result, stuffLiam// get the user out of session and pass to template
     });
        
         
@@ -325,17 +339,63 @@ router.post('/edit/:content', isLoggedIn, isAdmin, function(req, res, next) {
     let sql = 'update sitedata set dateDescription = "'+req.body.newContent+'", dataImage = "'+req.body.newImage+'" where siteArea = "'+req.params.content+'"' 
     let query = db.query(sql, (err,result) => {
        if(err) throw err;
-       res.render('adminsitedetails', {
-        user : req.user,result // get the user out of session and pass to template
+       var stuffLiam = req.cookies.theyLikeCookies
+       res.render('adminsitedetails',   {
+        user : req.user,result , stuffLiam// get the user out of session and pass to template
     });
        
         
     });
 
 
-   
 });
+
+
+
+
+ // edit comp route
+ router.get('/admineditcomp/:clueID', isLoggedIn, function(req, res, next){ 
+
+    var thedude = req.user.userName
+    var stuffLiam = req.cookies.theyLikeCookies
+    
+    let sql = 'SELECT * FROM clue where clueID = '+req.params.clueID+' ;';
+        // let sql = 'select  *  from clue where clueID = '+req.params.id+''
+        let query = db.query(sql, (err,result) => {
+           if(err) throw err;
+           
+           
+           res.render('admineditcomp', {result, stuffLiam})
+            
+        });
+     
+    
+    
+       });
    
+
+
+
+
+       router.post('/editcomp/:clueID', isLoggedIn, isAdmin, function(req, res, next) {
+    
+        let sql = 'update clue set cName = "'+req.body.clueName+'", cPrize = "'+req.body.cluePrize+'", q1Text = "'+req.body.question1+'", q2Text = "'+req.body.question2+'", q3Text = "'+req.body.question3+'", q4Text = "'+req.body.question4+'", q5Text = "'+req.body.question5+'", cDescription = "'+req.body.description+'" where clueID = "'+req.params.clueID+'"' 
+        let query = db.query(sql, (err,result) => {
+           if(err) throw err;
+           var stuffLiam = req.cookies.theyLikeCookies
+           res.render('adminsitedetails',   {
+            user : req.user,result , stuffLiam// get the user out of session and pass to template
+        });
+           
+            
+        });
+    
+    
+    });
+
+
+
+
 
 module.exports = router;
 

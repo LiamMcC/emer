@@ -1,0 +1,69 @@
+<%- include('header') -%>
+
+
+
+<form accept-charset="UTF-8" action="/editcomp/<%= result[0].clueID %>" method="post">
+
+
+    <div class="w3-row w3-padding w3-border">
+
+        <!-- Blog entries -->
+        <div class="w3-row w3-padding w3-border">
+<h4>Name The Comp and list the prize (if money type €) </h4>
+
+    <p><input name="clueName" class="w3-input w3-border" type="text" value="<%= result[0].cName %>" style="width:100%" required></p>
+    <p><input name="cluePrize" class="w3-input w3-border" type="text" value="<%= result[0].cPrize %>" style="width:100%" required></p>
+<hr>
+
+    <div class="w3-container w3-padding w3-black">
+      <h4>Questions</h4>
+      <p>Question can be edited but answers can not.</p>
+    </div>
+
+<h4>Clue 1 </h4>
+
+    <p><input name="question1" class="w3-input w3-border" type="text" value="<%= result[0].q1Text %>" style="width:100%" required></p>
+
+   
+
+<h4>Clue 2 </h4>
+<p><input name="question2" class="w3-input w3-border" type="text" value="<%= result[0].q2Text %>" style="width:100%" required></p>
+ 
+    <h4>Clue 3  </h4>
+    
+    <p><input name="question3" class="w3-input w3-border" type="text" value="<%= result[0].q3Text %>" style="width:100%" required></p>
+
+    <h4>Clue 4  </h4>
+    <p><input name="question4" class="w3-input w3-border" type="text" value="<%= result[0].q4Text %>" style="width:100%" required></p>
+   
+
+    <h4>Clue 5  </h4>
+    <p><input name="question5" class="w3-input w3-border" type="text" value="<%= result[0].q5Text %>" style="width:100%" required></p>
+    
+
+    
+   
+<div class="w3-container w3-padding w3-black">
+    <h4>Description</h4>
+    <p>This can be edited after.</p>
+  </div>
+   
+    
+<hr>
+<h4>Describe it now</h4>
+<p>This can be edited after</p>
+    <p><input name="description" class="w3-input w3-border" type="text" value="<%= result[0].cDescription %>" style="width:100%"  required></p>
+
+    <p><button class="w3-button w3-block w3-red">Edit This Competition</button></p>
+
+</div>
+
+
+
+</div>
+
+
+                </form>
+
+
+<%- include('footer') -%>

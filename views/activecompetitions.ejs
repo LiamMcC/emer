@@ -6,47 +6,48 @@
 
     <div class="w3-row-padding w3-padding-16 w3-center" id="food">
 
-<% result.forEach(function(contact) { %>
-       
-
-  
-    <div class="w3-third">
-      <div class="w3-container w3-white">
-      <img src="../<%= contact.cImage %>" alt="Sandwich" style="width:100%">
-      <h3><%= contact.cName %></h3>
-      <h5>Went Live On, <span class="w3-opacity"><%= contact.cDate %></span></h5>
-      <h3>Prize <%= contact.cPrize %></h3>
-      <% if (contact.currentProgress  !== 0 && contact.userName == user.userName) { %>
-        <p> <%= user.userName %> You are currently on clue <%= contact.currentProgress %></p>
-        <%} else { %>
-  <p>You Have Not Tried This Competition Yet</p>
-          <% } %>  
+              <% result.forEach(function(contact) { %>
+                  <div class="w3-third ">
+                    <div class="w3-container w3-white">
+                      <img src="../<%= contact.cImage %>" alt="Sandwich" style="width:100%">
+                      <h3><%= contact.cName %></h3>
+                      <h5>Went Live On, <span class="w3-opacity"><%= contact.cDate %></span></h5>
+                      <h3>Prize <%= contact.cPrize %></h3>
+                      <% if (contact.currentProgress  !== 0 && contact.userName == user.userName) { %>
+                    <p> <%= user.userName %> You are currently on clue <%= contact.currentProgress %></p>
+    <%} else { %>
+ 
+          <p>You Have Not Tried This Competition Yet</p>
+    <% } %>  
 
 
-          <div class="w3-justify">
-
-            <p><%= contact.cDescription %></p>
-            <p class="w3-left"><a href="/like/<%= contact.clueID %>" class="w3-button w3-white w3-border"><b><i class="fa fa-thumbs-up"></i> Like (<%= contact.cLikes %>)</b></a></p>
-            <p class="w3-right">
+      <div class="w3-justify">
+            <br>
+            <div class="w3-white">
+              <% var progressPer = Math.round((contact.currentMax ) / 6 * 100) 
+              var progressYou = Math.round((contact.currentProgress ) / 6 * 100)
+              %>
+             
+             <div class="w3-red" style="height:10px;width:<%= progressPer %>%"></div>
+             
+               <div class="w3-green" style="height:10px;width:<%= progressYou %>%"></div>
+            </div><br>
+            <p><%= contact.cDescription.substring(0, 200) %> ...</p>
+            
+            
+            <p><a href="/like/<%= contact.clueID %>" class="w3-button w3-white w3-border"><b><i class="fa fa-thumbs-up"></i> Like (<%= contact.cLikes %>)</b></a>
+            
               <% if (contact.currentProgress  !== 0 && contact.userName == user.userName ) { %>   
-              <a href="check/<%= contact.clueID %>/clue<%= contact.currentProgress %>"><button class="w3-button w3-green" ><b>Play Now x </b> </button></a>
-              
-              
-              <%} else { %>
-                <a href="check/<%= contact.clueID %>/clue1"><button class="w3-button w3-green" ><b>Play Now </b> </button></a>
-              <% } %>  
-      
-              <a href="check/<%= contact.clueID %>/clue<%= contact.currentProgress %>"><button class="w3-button w3-black" ><b>Current Guess </b> <span class="w3-tag w3-white"><%= contact.currentMax %></span></button></a></p>
-              <p class="w3-clear"></p>
-            <div class="w3-row w3-margin-bottom" id="demo1" style="display:none">
-              <hr>
-              
-                <div class="w3-col l10 m9">
-                  <h4>Winner <span class="w3-opacity w3-medium"><%= contact.cWinner %></span></h4>
-                  
-                </div>
-            </div>
-          </div>
+                <a href="check/<%= contact.clueID %>/clue<%= contact.currentProgress %>"><button class="w3-button w3-black" ><b>Play Nowx</b> </button></a>
+                <%} else { %>
+                  <a href="check/<%= contact.clueID %>/clue1"><button class="w3-button w3-black" ><b>Play Now</b></button></a>
+                  <% } %> 
+                
+             <p>Somebody is currently on clue <%= contact.currentMax %> in this competition</p>
+             
+             
+    
+      </div>
     </div>
 
     </div>
@@ -67,11 +68,19 @@
 
 <%} else { %>
 
-
+  <div class="w3-container w3-white w3-margin w3-padding-large">
+    <div class="w3-center">
+<h4>Some information for you:</h4>
+<p>All competitions are free to enter. You can enter these as many times as you like and as often as you like provided you have a valid membership of for the website. </p> 
+<h4>How it works</h4>
+<p>(a) Each competition has 5 clues (b) Each clue has only one correct answer (c) Type your answer in the text area provided and press submit i. If the guess you enter is correct you will proceed to the next clue ii. If the guess you enter is wrong you will be allowed to guess again an unlimited number of times iii. The final clue will point to a website where a code is hidden. This code will be the 5th and final answer to one competition. iv. All clues must be answered in order. v. Once you answer each clue correctly you will be moved on to the next clue automatically. vi. First to get all correct answers for any competition wins that competition.</p>      
+<p>Watch out for progress bars around our site. The green represents your competition progress and the red is the current leaders progress.</p>
+</div>
+  </div>
 
   <% result.forEach(function(contact) { %>
        
-    
+
 
     <!-- Blog entry -->
 <div class="w3-container w3-white w3-margin w3-padding-large">

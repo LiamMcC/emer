@@ -21,10 +21,23 @@ $(document).ready(function(){
 $.ajax({
 
   url: "/testauto",
-  method: "post"
+  method: "get"
 })
 
     $("#cookieBar").hide();
+  });
+
+})
+
+$(document).ready(function(){
+  $("#oneUpdate").click(function(){
+$.ajax({
+
+  url: $('#oneUpdate').val(),
+  method: "get"
+})
+
+
   });
 
 })
@@ -68,6 +81,7 @@ body {font-family: "Open Sans"}
   <a href="/information/about" class="w3-bar-item w3-button">ABOUT</a>
   <a href="/information/contact" class="w3-bar-item w3-button">CONTACT</a>
   <a href="/information/faq" class="w3-bar-item w3-button">F.A.Q</a>
+  <a href="/information/faq" class="w3-bar-item w3-button">HELP</a>
   <a href="/information/partnership" class="w3-bar-item w3-button">PARTNER</a>
   <script src="node-modules/cookie-notice/dist/cookie.notice.min.js"></script>
  
@@ -75,7 +89,7 @@ body {font-family: "Open Sans"}
   <% if (isAuthenticated) { %>
     <a href="/logout" class="w3-bar-item w3-button">LOG-OUT</a>
     <a href="/profile" class="w3-bar-item w3-button">PROFILE</a>
-    <a href="/adminarea" class="w3-bar-item w3-button">ADMIN</a>
+    
     <%} else { %>
       <a href="/login" class="w3-bar-item w3-button">LOGIN</i></a>
       <a href="/signup" class="w3-bar-item w3-button">REGISTER</i></a>

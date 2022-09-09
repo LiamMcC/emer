@@ -1,15 +1,61 @@
 
 <!-- Footer -->
 <footer class="w3-container w3-dark-grey" style="padding:32px">
-  
+  <div class="w3-row ">
+  <div class="w3-col l4">
+<a href="/unsubscribe" style>Unsubscribe from our mailing list</a>
+<br>
+<a href="/information/terms">Terms & Conditions</a>
+<br>
+<a href="/information/cookies">Cookies Info</a>
+<br>
+<a href="/cancelCookie">Cance Accepted Cookies</a>
+</div>
+
+
+<div class="w3-col l4">
+  <a href="/information/privacy" style>Privacy Policy</a>
+  <br>
+  <a href="/information/privacy" style>Winners</a>
+  <br>
+  <a href="/information/privacy" style>Past Competitions</a>
+  </div>
+
+
+
+
+  <div class="w3-col l4">
+    
+    
+    <% if (isAuthenticated) { %>
+    <a href="/adminarea">Admin</a>
+    <% } %>
+    </div>
+
+</div>
+
+
+<div class="w3-row ">
+  <hr>
     <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
     <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-    <div class="cookieAgree" id="cookieBar">
-      <p>We use cookies to enhance your browsing experience and serve personalized content. By clicking "Accept", you consent to our use of cookies. Read More
-        <button id="ajaxdude" class="w3-button w3-black w3-padding-large w3-margin-bottom">Accept</button>
+  </div>
+    <% if(stuffLiam == 1){ %>
+    
 
+      <% } else{ %>  
+    <div class="cookieAgree" id="cookieBar">
+      
+        
+      
+        
+    
+      <p>We use cookies to enhance your browsing experience and serve personalized content. By clicking "Accept", you consent to our use of cookies. <a href="/information/cookies">Read More</a>
+       <!-- <button id="ajaxdude" class="w3-button w3-black w3-padding-large w3-margin-bottom">Accept</button> -->
+        <a href="/acceptCookie" class="w3-button w3-black w3-padding-large w3-margin-bottom">Accept</a>
       </p>
     </div>
+    <% } %>
   
   </footer>
   
